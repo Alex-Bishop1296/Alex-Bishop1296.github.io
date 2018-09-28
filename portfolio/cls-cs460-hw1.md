@@ -77,7 +77,7 @@ From here I decided to implement a navigation bar to give the website both linke
 ```
 Breaking this code down a little bit, I create a nav class object that is a navbar with a dark background and text as well as a small expanded size. Then, I assign the navbar object to an ul or unordered list. Finally, I create list nav-item class items for each link, setting the current page (home.html in this case) to active. This allows me to create a nav bar like so:
 
-!:[Image of Navigation](example/bar-image.png)
+!:[Image of Navigation](http://alex-bishop1296.github.io/portfolio/example/bar-image.png)
 
 Next, after linking the nav buttons and copying the layout onto new pages for gallery and blog, I began to look at the individual requirements of the webpages. One of them was to use bootstrap to create a single column and multi-column pages. Starting with single column page I created a container to test on the Home page and Blog page. The start of the code for this looked as follows:
 ```html
@@ -116,7 +116,7 @@ Now that I had my two types of pages, I still needed another type of list other 
 ```
 Simple as it gets, <dl> denotes the start of the list, and each <dt> is the item and <dd> is the item description. I used this in the simplest sense, not much more editing than that. We get this as a result:
 
-!:[Image of list](example/list-image.png)
+!:[Image of list](http://alex-bishop1296.github.io/portfolio/example/list-image.png)
 
 Simple, nice and easy. Finally I had to hit the requirement for a table. I decided to use the table as some contacts, as well as use a bootstrap table. With bootstrap, the table took a similar approach to the many containers and rows that I have already made. After some minor research, the code looks like this:
 ```html
@@ -141,7 +141,7 @@ Simple, nice and easy. Finally I had to hit the requirement for a table. I decid
 ```
 Breaking this down, the first div class makes a small responsive table or “table-responsive-sm”. This allows us to scale the time smartly to screen size to a limit (once it hits the pixel limit it adds a scrollbar). Then I added the table class “table table-borderless”, this allowing the table to have no lines or separations (personal preference). Next we have the thread, or title columns, this is used for setting how many columns each row has and what they are. Followed by this is the tbody which contains each row. With these foundations, making a table was easy as could be, and looked a little like this:
 
-!:[Image of table](example/table-image.png)
+!:[Image of table](http://alex-bishop1296.github.io/portfolio/example/table-image.png)
 
 With these requirements hit, I started making lots of edits for the looks and content of the website. As these show on the website and don’t need the additional detail, I can move onto the next step of the project:
 
