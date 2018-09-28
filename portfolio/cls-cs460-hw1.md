@@ -1,7 +1,7 @@
 # Return to?
-[Home](../index.md)
-[CS460 Assignments](cls-cs460.md)
-[Code Repo](Alex-Bishop1296.github.io)
+[Home](../index.md) |
+[CS460 Assignments](cls-cs460.md) |
+[Code Repo](http://alex-bishop1296.github.io) |
 
 # Link to finished project:
 
