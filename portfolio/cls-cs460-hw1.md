@@ -1,24 +1,28 @@
-#1.[Setup]
+# Link to finished project:
+
+[Homepage](../html/home.html)
+
+# 1.[Setup]
  My first task was to install the command line version of the Git version control system. I did this simply enough by following the link from Git’s website and downloading the installer. The process only took a couple clicks through the right checkboxes in the installer and then I was ready to use Git. I then needed to setup a repository for all of my work. For now, I created a CS460 folder which will house my repository.
 
-#2.[Setup] 
+# 2.[Setup] 
 My next step was to setup a Github or Bitbucket account. As I had already made a Github account in the past I decided to go with the one I already made. Next, I needed to set up my repository with Github. Before I did that, I know I needed a little bit of setup, so from the command line I set my username and email for my git commits with the following commands:
-```git
+```
 git config --global user.name “Alex-Bishop1296”
 
 git config --global user.email “alex.bishop1296@gmail.com”
 ```
 From there I made an online Github repository and cloned that into my CS460 folder using the clone command in command line. To finally make sure everything was working as intended, I made a folder for homework 1 and put a test file inside it. From there, I did the following
-
+```
 git add HW1
 
 git commit -m “Added Homework 1 folder with test file inside it”
 
 git push origin master
-
+```
 These commands successfully committed my changes to the master branch and uploaded them to the online repository. With this done, I was finished with setup and ready to move onto the next step.
 
-#3.[Content/Coding]
+# 3.[Content/Coding]
 I started by getting my feet wet in HTML and getting the basic template for an html page working with a title,  and simple paragraph, like so:
 ```html
 <!DOCTYPE html>
@@ -134,11 +138,11 @@ Breaking this down, the first div class makes a small responsive table or “tab
 
 With these requirements hit, I started making lots of edits for the looks and content of the website. As these show on the website and don’t need the additional detail, I can move onto the next step of the project:
 
-#4.[Test]
+# 4.[Test]
 This step was pretty simple, making a clone of the repository and checking if all the website works from it. I made a remote test folder, navigated to it in git bash, and did the following:
-```git
+```
 git clone https://github.com/Alex-Bishop1296/CS460projects.git
 ```
 This cloned the repository’s contents into my directory. Next I opened up the html file and everything worked exactly as intended. Now I could jump to the next step.
 
-#5.[Setup]
+# 5.[Setup]
