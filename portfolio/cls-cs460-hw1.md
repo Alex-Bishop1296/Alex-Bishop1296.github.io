@@ -152,4 +152,19 @@ git clone https://github.com/Alex-Bishop1296/CS460projects.git
 ```
 This cloned the repository’s contents into my directory. Next I opened up the html file and everything worked exactly as intended. Now I could jump to the next step.
 
-# 5.[Setup]
+# 5.[Setup] and 6.[Portfolio Content]
+Here, I needed to set up a Portfolio (the webpage you are on right now!) for my work. As per the requirement, I would use Github pages to display the assignment with notes (again, the ones you are reading right now) explaining my process. Since I used Github pages I had to start by changing the name of the repo to my user with a .github.io appended to it. This allowed me to assign a theme to the page as a _config.yml file. From here I ran into some issues and solutions I will detail.
+
+Problem: Header title card on the main page was always the same
+Solution: Additional code in the .yml file allowed me to change what that header as so
+```yml
+title: Alex Bishop's Class Portfolio
+```
+
+Problem:Link to the website homepage was not working, would link to 404
+Solution: Use full path to website
+```markdown
+[Homepage](http://alex-bishop1296.github.io/HW1/html/home.html)
+```
+
+Aside from these, the majority of the content speaks for itself. With all said and done, the project was ready for submission.
