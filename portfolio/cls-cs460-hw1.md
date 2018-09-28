@@ -1,3 +1,5 @@
+#CS460 Homework 1
+
 # Return to?
 ### [Code Repo](https://github.com/Alex-Bishop1296/Alex-Bishop1296.github.io) 
 ### [Home](../index.md) 
@@ -6,6 +8,8 @@
 # Link to finished project:
 
 ### [Homepage](http://alex-bishop1296.github.io/HW1/html/home.html)
+
+# Notes
 
 # 1.[Setup]
  My first task was to install the command line version of the Git version control system. I did this simply enough by following the link from Git’s website and downloading the installer. The process only took a couple clicks through the right checkboxes in the installer and then I was ready to use Git. I then needed to setup a repository for all of my work. For now, I created a CS460 folder which will house my repository.
