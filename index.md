@@ -4,4 +4,4 @@ I'm currently a senior at Western Oregon University preparing to graduate with m
 # Class Links
 Here is a list of classes with projects I have completed at my time studying at WOU:
 
-### [Computer Science 460](portfolio/cls-cs460.md) |
+### [Computer Science 460](portfolio/cls-cs460.md) :|
