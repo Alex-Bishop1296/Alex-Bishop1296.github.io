@@ -20,3 +20,16 @@
     position: relative;
     margin: auto;
 }
+
+#submission {
+    box-shadow: 3px 3px 5px #888;
+    border-radius: 6px;
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    background-color: lightgrey;
+    color: red;
+    font-family:'Rokkitt', serif;
+    position: relative;
+    margin: auto;
+}

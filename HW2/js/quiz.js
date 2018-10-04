@@ -19,19 +19,36 @@ var currentQuestion = 0;
 var correctQuestions = 0;
 var quizOver = false;
 
-//This will serve as my game controller 
+// This will serve as my game controller 
 $(document).ready(function () {
-    $(this).find("#progression").on("click", function () {
-        //Check if the name field entered by the player is valid
-        if (document.getElementById("name").value == "" || document.getElementById("name").value == " " || document.getElementById("name").value == "Enter your name!") {
-            alert("That name won't do! Fix it ya BONE head!");
-        } else {
-            startQuiz();
-                nextQuestion();
-        }
-    });
-
+    $("#submission").toggle();
+    $(this).find("#progression").on("click", checkStart);
+    $(this).find("#submission").on("click", checkSubmit);
 });
+
+// This will check if the quiz can be started and will start it if it can
+function checkStart() {
+    //Check if the name field entered by the player is valid
+    if (document.getElementById("name").value == "" || document.getElementById("name").value == " " || document.getElementById("name").value == "Enter your name!") {
+        alert("That name won't do! Fix it ya BONE head!");
+    } else {
+        // Start the Quiz and put up first question
+        startQuiz();
+        nextQuestion();
+    }
+}
+// This function will check each value submission
+function checkSubmit() {
+    // Assign current list value     
+    var value = $("input[type='radio']:checked").val();
+
+        if (value == undefined) {
+            alert("You numb SKULL! You need to select a value!");
+        }
+        else {
+              
+        }
+}
 
 // This code must be executed each time the start button is pressed
 function startQuiz() {
@@ -42,10 +59,11 @@ function startQuiz() {
     playerName = document.getElementById("name").value;
 
     // Turn off the welcome message
-    $("#welcome").slideToggle();
+    $("#welcome").toggle();
 
     // Change button prompt
-    $("#progression").html("Submit");
+    $("#progression").toggle();
+    $("#submission").toggle();
 }
 
 // Code for generating next question
@@ -57,7 +75,8 @@ function nextQuestion() {
 
     $("#question_prompt").text(prompt);
     $("#question_image").html('<img src="' + image + '" width="300" height="300">');
-   
+
+
     // For each choice in the current questions choices
     for (i = 0; i < questions[currentQuestion].choices.length; i++) {
         choice = questions[currentQuestion].choices[i];
