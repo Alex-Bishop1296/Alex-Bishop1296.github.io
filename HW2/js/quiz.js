@@ -36,6 +36,7 @@ $(document).ready(function () {
     $(this).find("#progression").on("click", checkStart);
     $(this).find("#submission").on("click", checkSubmit);
     //Testing other syntax for buttons
+    //Brings user back to start page
     $("#restarter").click(function() {
         window.location = "../html/index.html";
     });
@@ -48,7 +49,7 @@ function checkStart() {
         // Debug message
         console.log("Invalid name error detected");
         // Alert user
-        alert("That name won't do! Fix it ya BONE head!");
+        alert("That name won't do! Fix it ya BONE-head!");
     } else {
         // Start the Quiz and put up first question
         console.log("Sequencing quiz startup");
@@ -58,23 +59,25 @@ function checkStart() {
 }
 
 // This function will check each value submission, incrementing score if possible
+// Most of the post-start Quiz logic, including the quit and scoring, happens here
 function checkSubmit() {
     // Assign current user selected value     
     var value = $("input[type='radio']:checked").val();
 
     //Check if value was valid, skip if not
     if (value == undefined) {
-        //Debug message
+        // Debug message
         console.log("Checking Value - Invalid");
-        //Alert user
-        alert("You numb SKULL! You need to select a value!");
+        // Alert user
+        alert("You numb-SKULL! You need to select a value!");
     }
     else {
-        //Debug message
-        console.log("Player anwered " + value + " Answer was " + questions[currentQuestion].correctAnswer);
+        // Debug message
+        console.log("Player answered " + value + ", The answer was " + questions[currentQuestion].correctAnswer);
 
         //If question was correct, increment
         if (value == questions[currentQuestion].correctAnswer) {
+            // Debug message
             console.log("Correct answer");
             correctQuestions++;
         }
@@ -143,7 +146,11 @@ function nextQuestion() {
 
     // Insert current question into HTML staging area
     $("#question_prompt").text(prompt);
+    
+    // Insert image (if any) into HTML staging area
+    if (image != "") {
     $("#question_image").html('<img src="' + image + '" width="300" height="300">');
+    }
 
     // Remove all current <li> elements (if any)
     $("#question_choices").find("li").remove();
