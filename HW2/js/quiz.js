@@ -29,6 +29,8 @@ $(document).ready(function () {
     // Make submission and restarter button invisable before load
     $("#submission").toggle();
     $("#restarter").toggle();
+    // Allow buttons to be shown by fade in (prevents blinking effect)
+    $('div.hidden').fadeIn(1000).removeClass('hidden');
 
     //Button functions
     $(this).find("#progression").on("click", checkStart);
@@ -149,6 +151,7 @@ function nextQuestion() {
     // For each choice in the current questions choices, insert into list
     for (i = 0; i < questions[currentQuestion].choices.length; i++) {
         choice = questions[currentQuestion].choices[i];
-        $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo("#question_choices");
+        // Append item to the radio list
+        $('<label class="radio-inline"><li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li></label>').appendTo("#question_choices");
     }
 }
