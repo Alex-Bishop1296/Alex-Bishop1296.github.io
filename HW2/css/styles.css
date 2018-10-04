@@ -8,7 +8,7 @@
 	text-align: center;
 }
 
-#progression {
+#progression, #restarter {
     box-shadow: 3px 3px 5px #888;
     border-radius: 6px;
     width: 150px;

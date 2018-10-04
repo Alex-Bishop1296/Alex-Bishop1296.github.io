@@ -23,23 +23,29 @@ var questions = [{
 var playerName;
 var currentQuestion = 0;
 var correctQuestions = 0;
-var quizOver = false;
 
 // This will serve as my button controller 
 $(document).ready(function () {
-    // Make submission button invisable before load
+    // Make submission and restarter button invisable before load
     $("#submission").toggle();
+    $("#restarter").toggle();
 
     //Button functions
     $(this).find("#progression").on("click", checkStart);
     $(this).find("#submission").on("click", checkSubmit);
+    //Testing other syntax for buttons
+    $("#restarter").click(function() {
+        window.location = "../html/index.html";
+    });
 });
 
 // This will check if the quiz can be started and will start it if it can
 function checkStart() {
     //Check if the name field entered by the player is valid
     if (document.getElementById("name").value == "" || document.getElementById("name").value == " " || document.getElementById("name").value == "Enter your name!") {
+        // Debug message
         console.log("Invalid name error detected");
+        // Alert user
         alert("That name won't do! Fix it ya BONE head!");
     } else {
         // Start the Quiz and put up first question
@@ -51,15 +57,18 @@ function checkStart() {
 
 // This function will check each value submission, incrementing score if possible
 function checkSubmit() {
-    // Assign current list value     
+    // Assign current user selected value     
     var value = $("input[type='radio']:checked").val();
 
     //Check if value was valid, skip if not
     if (value == undefined) {
-        console.log("Checking Value");
+        //Debug message
+        console.log("Checking Value - Invalid");
+        //Alert user
         alert("You numb SKULL! You need to select a value!");
     }
     else {
+        //Debug message
         console.log("Player anwered " + value + " Answer was " + questions[currentQuestion].correctAnswer);
 
         //If question was correct, increment
@@ -75,17 +84,22 @@ function checkSubmit() {
         }
         //End Quiz
         else {
+            // Debug message
             console.log("ending quiz now");
+            // Change button prompts
+            // Enable The return to page home as a restart 
+            $("#restarter").toggle();
             $("#submission").toggle();
-            endQuiz();
+            // End Quiz
+            endQuiz();  
         }
 
     }
 }
 
-// This code must be executed each time the start button is pressed
+// Start the quiz
 function startQuiz() {
-    // Log to the console that the quiz is being started
+    // Debug message
     console.log("Starting Quiz");
 
     // Store player name
@@ -101,14 +115,21 @@ function startQuiz() {
 
 //End quiz an give named player their score
 function endQuiz() {
+    //Debug message
     console.log("Reached end function");
+
     //Empty the staging area
     $("#question_prompt").empty();
     $("#question_image").empty();
     $("#question_choices").find("li").remove();
 
-    //Display end message
+    // Display end message
     $("#question_prompt").text(playerName + " Scored: " + correctQuestions + " points out of " + questions.length);
+
+    // Clear Values
+    playerName.empty();
+    currentQuestion = 0;
+    correctQuestions = 0;
 }
 
 // Code for generating next question
