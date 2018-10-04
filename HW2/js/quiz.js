@@ -60,8 +60,10 @@ function checkSubmit() {
         alert("You numb SKULL! You need to select a value!");
     }
     else {
+        console.log("Player anwered " + value + " Answer was " + questions[currentQuestion].correctAnswer);
+
         //If question was correct, increment
-        if (value = questions[currentQuestion].correctAnswer) {
+        if (value == questions[currentQuestion].correctAnswer) {
             console.log("Correct answer");
             correctQuestions++;
         }
