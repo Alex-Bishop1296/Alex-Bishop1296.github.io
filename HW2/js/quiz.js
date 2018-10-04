@@ -25,9 +25,6 @@ var currentQuestion = 0;
 var correctQuestions = 0;
 var quizOver = false;
 
-// Make submission button invisable before load
-$("#submission").toggle();
-
 // This will serve as my button controller 
 $(document).ready(function () {
     // Make submission button invisable before load
@@ -42,41 +39,47 @@ $(document).ready(function () {
 function checkStart() {
     //Check if the name field entered by the player is valid
     if (document.getElementById("name").value == "" || document.getElementById("name").value == " " || document.getElementById("name").value == "Enter your name!") {
+        console.log("Invalid name error detected");
         alert("That name won't do! Fix it ya BONE head!");
     } else {
         // Start the Quiz and put up first question
+        console.log("Sequencing quiz startup");
         startQuiz();
         nextQuestion();
     }
 }
+
 // This function will check each value submission, incrementing score if possible
 function checkSubmit() {
     // Assign current list value     
     var value = $("input[type='radio']:checked").val();
 
-        //Check if value was valid, skip if not
-        if (value == undefined) {
-            alert("You numb SKULL! You need to select a value!");
+    //Check if value was valid, skip if not
+    if (value == undefined) {
+        console.log("Checking Value");
+        alert("You numb SKULL! You need to select a value!");
+    }
+    else {
+        //If question was correct, increment
+        if (value = questions[currentQuestion].correctAnswer) {
+            console.log("Correct answer");
+            correctQuestions++;
         }
+        //If quiz questions remain, continue to next questions
+        if (currentQuestion < questions.length - 1) {
+            console.log("Starting next question");
+            currentQuestion++;
+            nextQuestion();
+        }
+        //End Quiz
         else {
-            //If question was correct, increment
-             if (value = questions[currentQuestion].correctAnswer){
-                correctQuestions++;
-             } 
-             //If quiz questions remain, continue to next questions
-             if (currentQuestion != questions.length) {
-                 currentQuestion++;
-                 nextQuestion();
-             } 
-             //End Quiz
-             else {
-                $("#submission").toggle();
-                 endQuiz();
-             }
-
+            console.log("ending quiz now");
+            $("#submission").toggle();
+            endQuiz();
         }
-}
 
+    }
+}
 
 // This code must be executed each time the start button is pressed
 function startQuiz() {
@@ -94,10 +97,16 @@ function startQuiz() {
     $("#submission").toggle();
 }
 
-//End quiz
+//End quiz an give named player their score
 function endQuiz() {
     console.log("Reached end function");
-    $("#question_prompt").text("You Scored: " + correctQuestions + " points out of " + questions.length)
+    //Empty the staging area
+    $("#question_prompt").empty();
+    $("#question_image").empty();
+    $("#question_choices").find("li").remove();
+
+    //Display end message
+    $("#question_prompt").text(playerName + " Scored: " + correctQuestions + " points out of " + questions.length);
 }
 
 // Code for generating next question
@@ -107,13 +116,14 @@ function nextQuestion() {
     var image = questions[currentQuestion].image;
     var choice;
 
+    // Insert current question into HTML staging area
     $("#question_prompt").text(prompt);
     $("#question_image").html('<img src="' + image + '" width="300" height="300">');
 
     // Remove all current <li> elements (if any)
     $("#question_choices").find("li").remove();
 
-    // For each choice in the current questions choices
+    // For each choice in the current questions choices, insert into list
     for (i = 0; i < questions[currentQuestion].choices.length; i++) {
         choice = questions[currentQuestion].choices[i];
         $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo("#question_choices");
