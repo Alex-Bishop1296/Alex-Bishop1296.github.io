@@ -10,6 +10,12 @@ var questions = [{
     image: "../img/002.jpg",
     choices: ["Vomer", "Ulna", "Humerus", "Femur"],
     correctAnswer: 2
+},
+{
+    prompt: "What bone is this?",
+    image: "../img/003.jpg",
+    choices: ["Stapes", "Tibia", "Renais", "Olmves"],
+    correctAnswer: 0
 }
 ]
 
@@ -19,9 +25,15 @@ var currentQuestion = 0;
 var correctQuestions = 0;
 var quizOver = false;
 
-// This will serve as my game controller 
+// Make submission button invisable before load
+$("#submission").toggle();
+
+// This will serve as my button controller 
 $(document).ready(function () {
+    // Make submission button invisable before load
     $("#submission").toggle();
+
+    //Button functions
     $(this).find("#progression").on("click", checkStart);
     $(this).find("#submission").on("click", checkSubmit);
 });
@@ -37,18 +49,34 @@ function checkStart() {
         nextQuestion();
     }
 }
-// This function will check each value submission
+// This function will check each value submission, incrementing score if possible
 function checkSubmit() {
     // Assign current list value     
     var value = $("input[type='radio']:checked").val();
 
+        //Check if value was valid, skip if not
         if (value == undefined) {
             alert("You numb SKULL! You need to select a value!");
         }
         else {
-              
+            //If question was correct, increment
+             if (value = questions[currentQuestion].correctAnswer){
+                correctQuestions++;
+             } 
+             //If quiz questions remain, continue to next questions
+             if (currentQuestion != questions.length) {
+                 currentQuestion++;
+                 nextQuestion();
+             } 
+             //End Quiz
+             else {
+                $("#submission").toggle();
+                 endQuiz();
+             }
+
         }
 }
+
 
 // This code must be executed each time the start button is pressed
 function startQuiz() {
@@ -66,6 +94,12 @@ function startQuiz() {
     $("#submission").toggle();
 }
 
+//End quiz
+function endQuiz() {
+    console.log("Reached end function");
+    $("#question_prompt").text("You Scored: " + correctQuestions + " points out of " + questions.length)
+}
+
 // Code for generating next question
 function nextQuestion() {
     //Assign the questions based on current question
@@ -76,6 +110,8 @@ function nextQuestion() {
     $("#question_prompt").text(prompt);
     $("#question_image").html('<img src="' + image + '" width="300" height="300">');
 
+    // Remove all current <li> elements (if any)
+    $("#question_choices").find("li").remove();
 
     // For each choice in the current questions choices
     for (i = 0; i < questions[currentQuestion].choices.length; i++) {
