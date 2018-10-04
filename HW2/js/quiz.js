@@ -12,7 +12,7 @@ var questions = [{
 ]
 
 //Items we need to keep track of for this game to work
-var playerName = "";
+var playerName;
 var currentQuestion = 0;
 var correctQuestions = 0;
 var quizOver = false;
@@ -24,9 +24,10 @@ $(document).ready(function () {
         if (document.getElementById("name").value == "" || document.getElementById("name").value == " " || document.getElementById("name").value == "Enter your name!") {
             alert("That name won't do! Fix it ya BONE head!");
         } else {
-            alert("Good, ya did the thing");
+            startQuiz();
         }
     });
+
 });
 
 // This code must be executed each time the start button is pressed
@@ -34,6 +35,12 @@ function startQuiz() {
     // Log to the console that the quiz is being started
     console.log("Starting Quiz");
 
+    // Store player name
     playerName = document.getElementById("name").value;
 
+    // Turn off the welcome message
+    $("#welcome").slideToggle();
+
+    // Change button prompt
+    $("#progression").html("Submit");
 }
