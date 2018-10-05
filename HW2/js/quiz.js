@@ -18,11 +18,35 @@ var questions = [{
     correctAnswer: 0
 },
 {
-    prompt: "What is the largest bone in the human body",
+    prompt: "What is the largest bone in the human body?",
     image: "",
     choices: ["Skull", "Spine", "Tibia", "Femur"],
     correctAnswer: 3
-}
+},
+{
+    prompt: "What bone is this?",
+    image: "../img/004.jpg",
+    choices: ["Proximal phalanges", "Hamate Bone", "Trapezoid bone", "Lunate Bone"],
+    correctAnswer: 2
+},
+{
+    prompt: "What bone is this?",
+    image: "../img/005.jpg",
+    choices: ["Vomer", "Randialus Bone", "Radius", "Ulna"],
+    correctAnswer: 2
+},
+{
+    prompt: "How many bones are in the Human Body?",
+    image: "",
+    choices: ["Over 300", "Over 100", "Over 50", "Over 200"],
+    correctAnswer: 3
+},
+{
+    prompt: "One bone is your body isn't connected to any other bone, it's called the _______",
+    image: "",
+    choices: ["Hyoid Bone", "Vulpa", "Horoid Bone", "The Ghost Bone"],
+    correctAnswer: 0
+},
 ]
 
 //Items we need to keep track of for this game to work
