@@ -1,3 +1,7 @@
+body {
+    background-color: black;
+}
+
 ul {
     list-style: none;
 }
@@ -15,7 +19,8 @@ input[type=radio] {
     margin-top: 50px;
     padding-top: 100px;
     padding-block-end: 200px;
-	border: 5px black solid;
+    border: 5px black solid;
+    background-color: orange;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -32,7 +37,7 @@ input[type=radio] {
     height: 40px;
     text-align: center;
     background-color: lightgrey;
-    color: red;
+    color: black;
     font-family:'Rokkitt', serif;
     position: relative;
     margin: auto;
@@ -45,13 +50,18 @@ input[type=radio] {
     height: 40px;
     text-align: center;
     background-color: lightgrey;
-    color: red;
+    color: black;
     font-family:'Rokkitt', serif;
     position: relative;
     margin: auto;
 }
 
+#question_prompt {
+    font-size: 48px;
+
+}
+
 #question_choices {
     font-family: Courier, serif;
-    color: rgb(226, 43, 43);
+    color: black;
 }

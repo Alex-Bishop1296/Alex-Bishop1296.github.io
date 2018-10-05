@@ -1,4 +1,4 @@
-// A variable to store all quiz images, correct answers, and choices
+// A variable to store all quiz prompts, images, correct answers, and choices
 var questions = [{
     prompt: "What bone is this?",
     image: "../img/001.jpg",
@@ -16,6 +16,12 @@ var questions = [{
     image: "../img/003.jpg",
     choices: ["Stapes", "Tibia", "Renais", "Olmves"],
     correctAnswer: 0
+},
+{
+    prompt: "What is the largest bone in the human body",
+    image: "",
+    choices: ["Skull", "Spine", "Tibia", "Femur"],
+    correctAnswer: 3
 }
 ]
 
@@ -147,9 +153,12 @@ function nextQuestion() {
     // Insert current question into HTML staging area
     $("#question_prompt").text(prompt);
     
-    // Insert image (if any) into HTML staging area
+    // Insert image (if any) into HTML staging area, else remove image aspect
     if (image != "") {
-    $("#question_image").html('<img src="' + image + '" width="300" height="300">');
+        $("#question_image").html('<img src="' + image + '" width="300" height="300">');
+    }
+    else {
+        $("#question_image").empty();
     }
 
     // Remove all current <li> elements (if any)
