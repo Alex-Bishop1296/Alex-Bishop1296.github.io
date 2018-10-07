@@ -1,0 +1,5 @@
+#ignore all java files, allows me to overlook the HW3 directory
+*.java
+
+#ignore the .vs folder in HW3
+.vs/
