@@ -26,4 +26,33 @@ Next up, I plannout the layout of my website. I write up some simple instruction
 
 ![Simple Layout Drawing](example/hw2Draft.jpg)
 
-I decided to have a single container that took up a container with a 8 grid size md setup, spaced out by 2 grid spaces (refering to bootstrap grid). On the title screen, we have a H2 element with some text under it explaining the quiz, then a start button with shadow. In the quiz page, I have a header, Image that would be present of invisable depending on the questions, a ul of radio buttons for the user answer, and finally the next question button.
+I decided to have a single container that took up a container with a 8 grid size md setup, spaced out by 2 grid spaces (refering to bootstrap grid). On the title screen, we have a H2 element with some text under it explaining the quiz, then a start button with shadow. I also included a text field for the player to input their name. In the quiz page, I have a header, Image that would be present of invisable depending on the questions, a ul of radio buttons for the user answer, and finally the next question button. I decided to go with a black and orange coloring scheme for all cards in on the halloween theme.
+
+# 4.[Coding]
+Quite a few things to go over here so I will try to be brief. First is the requirement for response to user output. I have three types of user input: buttons, radio forms, and an input field. Due various issues working with asyncronous code, I had to think of a good workaround for setting up my buttons as my original plan of one progresion button caused too many issues. Thus, in html, my buttons look like this:
+```html
+ <button id="progression">Start Quiz</button>
+ <button id="submission">Submit</button>
+ <button id="restarter">Play Again?</button>
+```
+I actually have a button for each type of function that needs to be executed, then I hide them based on where in the quiz the user is (ie what button they should have access to). I use a simple toggle to do this, like right when I intialize the page as so:
+```js
+    // Make submission and restarter button invisable before load
+    $("#submission").toggle();
+    $("#restarter").toggle();
+    // Allow buttons to be shown by fade in (prevents blinking effect)
+    $('div.hidden').fadeIn(1000).removeClass('hidden');
+```
+You might notice that this would normally cause all buttons to flicker when the page is loading in, a visable tick. To prevent this, I include a "hidden" class on my entire container like this:
+``` html
+<div class="container-fluid text-center hidden">
+```
+This allowed me to run a .fadeIn() (seen in the toggle block of code) that would cause the entire page to load in, then fade in, hiding any graphical issues. A cool looking work around if I do say so myself. Next up, we can talk about my radio form.
+
+The radio form inputs filled my requirements of having a list with multiple child elements, having multiple form elements (radio elements and input fields), and adding new list type elements to the page. Again, these would act as the answers a user could input for given questions. I started with some html that looks like this:
+```html
+<form>
+    <ul id="question_choices"></ul>
+</form>
+```
+This is simply a form element wrapping a unordered list element with the id "question_choices" assigned to it.
