@@ -1,14 +1,12 @@
 // Here is my file for QueueInterface with the purpose of replicating the code in QueueInterface.java but in C#.
 // Written By: Alex Bishop
-// Last Edit: 10/7/2018
-
-///<summary>
-/// A FIFO (First In First Out) queue interface. This ADT
-/// (Abstract Data Type) is suitable for a singly linke queue.
-/// </summary>
+// Last Edit: 10/8/2018
 
 namespace SolHWg
-{
+{   ///<summary>
+    /// A FIFO (First In First Out) queue interface. This ADT
+    /// (Abstract Data Type) is suitable for a singly linke queue.
+    /// </summary>
     public interface IQueueInterface<T>
     {
         ///<summary>

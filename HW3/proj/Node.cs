@@ -17,11 +17,11 @@ namespace SolHW
         /// Type Parameter for stored Node data
         /// </summary>
         public T Data;
+        
         /// <summary>
         /// Pointer for next Node in sequence
         /// </summary>
         public Node<T> Next;
-
 
         /// <summary>
         /// Constructor for when the node is made, and data and next are given
