@@ -2,5 +2,5 @@
 HW3/java/
 
 #ignore HW3 proj except cs files
-HW3/proj
-!/HW3/proj/*.cs
+HW3/proj/*
+!HW3/proj/*.cs
