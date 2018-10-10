@@ -2,6 +2,9 @@
 // Written By: Alex Bishop
 // Last Edit: 10/10/2018
 
+// For NullReferenceException
+using System;
+
 namespace SolHW
 {
     /// <summary>
@@ -26,8 +29,69 @@ namespace SolHW
 
         public T Push(T element)
         {
+            if (element == null)
+            {
+                throw new NullReferenceException();
+            }
 
+            if (IsEmpty())
+            {
+                Node<T> tmp = new Node<T>(element, null);
+                rear = front = tmp;
+            }
+            else
+            {
+                // General case
+                Node<T> tmp = new Node<T>(element, null);
+                rear.Next = tmp;
+                rear = tmp;
+            }
             return element;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public T Pop()
+        {
+            // Needs to be default(T) as T could be a non-nullable type
+            T tmp = default(T);
+            if (IsEmpty())
+            {
+                throw new QueueUnderflowException("The queue was empty when pop was invoked.");
+            }
+            else if (front == rear)
+            {   // one item in queue
+                tmp = front.Data;
+                front = null;
+                rear = null;
+            }
+            else
+            {
+                // General case
+                tmp = front.Data;
+                front = front.Next;
+            }
+
+            return tmp;
+        }
+
+        /// <summary>
+        /// Checks if the queue is empty
+        /// </summary>
+        /// <returns>True if empty, false if the queue contains data</returns>
+        public bool IsEmpty()
+        {
+            // If both head and tail contain no data
+            if (front == null && rear == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
