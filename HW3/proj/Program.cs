@@ -19,9 +19,14 @@ namespace SolHW
     /// </summary>
     public class Program
     {
-        static LinkedList<string> generateBinaryRepresentationList(int n)
+        /// <summary>
+        /// A function for generating the list of binary numbers for a given number
+        /// </summary>
+        /// <param name="n">The number you want to represent in binary</param>
+        /// <returns>A linked list of binaries forming n</returns>
+        static LinkedList<string> GenerateBinaryRepresentationList(int n)
         {
-            //This starting section of intializing our lists with default constructors
+            // This starting section of intializing our lists with default constructors
 
             // Stringbulder is a dynamic object that allows you to expand the
             // amount of characters in a string
@@ -45,8 +50,22 @@ namespace SolHW
             // Breadth-first search (BFS)
             while (n-- > 0)
             {
+                // print the front of the queue
+                StringBuilder sb = q.Pop();
+                output.AddLast(sb.ToString());
 
+                // Make a copy
+                StringBuilder sbc = new StringBuilder(sb.ToString());
+
+                // Left Child
+                sb.Append('0');
+                q.Push(sb);
+
+                // Right Child
+                sbc.Append('1');
+                q.Push(sbc);
             }
+            return output;
         }
     }
 }

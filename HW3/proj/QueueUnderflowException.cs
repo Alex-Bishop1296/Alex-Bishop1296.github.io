@@ -23,7 +23,7 @@ namespace SolHW
         /// <summary>
         /// Call of the Exception that allows a custom message
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">A given error message to throw</param>
         public QueueUnderflowException(string message)
             : base(message)
         {
