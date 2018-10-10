@@ -2,7 +2,7 @@
 // Written By: Alex Bishop
 // Last Edit: 10/8/2018
 
-namespace SolHWg
+namespace SolHW
 {   ///<summary>
     /// A FIFO (First In First Out) queue interface. This ADT
     /// (Abstract Data Type) is suitable for a singly linke queue.

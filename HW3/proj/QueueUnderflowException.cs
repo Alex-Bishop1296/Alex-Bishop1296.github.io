@@ -1,10 +1,10 @@
-﻿// Here is my file for QueueInterface with the purpose of replicating the code in QueueInterface.java but in C#.
+﻿// Here is my file for QueueUnderflowException with the purpose of replicating the code in QueueUnderflowException.java but in C#.
 // Written By: Alex Bishop
 // Last Edit: 10/9/2018
 // allows the use of exception
 using System;
 
-namespace proj
+namespace SolHW
 {
     /// <summary>
     ///  custom unchecked exception to represent situations where 
