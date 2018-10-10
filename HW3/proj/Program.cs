@@ -2,6 +2,8 @@
 // Written By: Alex Bishop
 // Last Edit: 10/10/2018
 
+
+using System;
 // For linked list generic object
 using System.Collections.Generic;
 // For StringBuilder() and .ToString()
@@ -24,7 +26,7 @@ namespace SolHW
         /// </summary>
         /// <param name="n">The number you want to represent in binary</param>
         /// <returns>A linked list of binaries forming n</returns>
-        static LinkedList<string> GenerateBinaryRepresentationList(int n)
+        static LinkedList<string> generateBinaryRepresentationList(int n)
         {
             // This starting section of intializing our lists with default constructors
 
@@ -66,6 +68,44 @@ namespace SolHW
                 q.Push(sbc);
             }
             return output;
+        }
+
+        /// <summary>
+        /// Driver program to test above function
+        /// </summary>
+        /// <param name="args">args taken in from the command line</param>
+        public static void Main(string[] args)
+        {
+            // Number to represent in binary
+            int n = 10;
+            // If args from user are not given
+            if (args.Length < 1)
+            {
+                Console.WriteLine("Please invoke with the max value to print binary up to, like this:");
+                Console.WriteLine("\tProgram 12");
+            }
+            try
+            {
+                n = int.Parse(args[0]);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("I'm sorry, I can't understand the number: " + args[0]);
+                return;
+            }
+            LinkedList<string> output = generateBinaryRepresentationList(n);
+            // Print it right justified. Longest string is the last one
+            // Print enough spaces to move it over the correct distance
+            int maxLength = output.Last().Length;
+            foreach(string s in output) 
+            {
+                for (int i = 0; i < maxLength - s.Length; ++i)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine(s);
+            }
+          
         }
     }
 }
