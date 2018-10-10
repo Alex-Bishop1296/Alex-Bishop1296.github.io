@@ -5,7 +5,7 @@
 namespace SolHW
 {   ///<summary>
     /// A FIFO (First In First Out) queue interface. This ADT
-    /// (Abstract Data Type) is suitable for a singly linke queue.
+    /// (Abstract Data Type) is suitable for a singly linked queue.
     /// </summary>
     public interface IQueueInterface<T>
     {

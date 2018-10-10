@@ -4,8 +4,30 @@
 
 namespace SolHW
 {
+    /// <summary>
+    /// A Singly Linked FIFO Queue.  
+    /// From Dale, Joyce and Weems "Object-Oriented Data Structures Using Java"
+    /// Converted to the C# language
+    /// </summary>
+    /// <typeparam name="T">Type Parameter for stored Node data</typeparam>
     class LinkedQueue<T> : IQueueInterface<T>
     {
+        private Node<T> front;
+        private Node<T> rear;
 
+        /// <summary>
+        /// Default constructor for Linked Queue
+        /// </summary>
+        public LinkedQueue()
+        {
+            front = null;
+            rear = null;
+        }
+
+        public T Push(T element)
+        {
+
+            return element;
+        }
     }
 }
