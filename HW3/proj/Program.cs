@@ -83,6 +83,7 @@ namespace SolHW
             {
                 Console.WriteLine("Please invoke with the max value to print binary up to, like this:");
                 Console.WriteLine("\tProgram 12");
+                return;
             }
             try
             {
