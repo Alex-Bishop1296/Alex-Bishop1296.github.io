@@ -1,5 +1,6 @@
-#ignore all java files, allows me to overlook the HW3 directory
-*.java
+#ignore HW3 java folder
+HW3/java/
 
-#ignore the .vs folder in HW3
-.vs/
+#ignore HW3 proj except cs files
+HW3/proj/*
+!HW3/proj/*.cs
