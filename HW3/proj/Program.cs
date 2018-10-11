@@ -96,7 +96,7 @@ namespace SolHW
             LinkedList<string> output = generateBinaryRepresentationList(n);
             // Print it right justified. Longest string is the last one
             // Print enough spaces to move it over the correct distance
-            int maxLength = output.Last().Length;
+            int maxLength = output.Count();
             foreach(string s in output) 
             {
                 for (int i = 0; i < maxLength - s.Length; ++i)
