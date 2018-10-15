@@ -26,7 +26,7 @@ namespace SolHW
         /// </summary>
         /// <param name="n">The number you want to represent in binary</param>
         /// <returns>A linked list of binaries forming n</returns>
-        static LinkedList<string> generateBinaryRepresentationList(int n)
+        static LinkedList<string> GenerateBinaryRepresentationList(int n)
         {
             // This starting section of intializing our lists with default constructors
 
@@ -94,7 +94,7 @@ namespace SolHW
                 Console.WriteLine("I'm sorry, I can't understand the number: " + args[0]);
                 return;
             }
-            LinkedList<string> output = generateBinaryRepresentationList(n);
+            LinkedList<string> output = GenerateBinaryRepresentationList(n);
             // Print it right justified. Longest string is the last one
             // Print enough spaces to move it over the correct distance
             int maxLength = output.Count();

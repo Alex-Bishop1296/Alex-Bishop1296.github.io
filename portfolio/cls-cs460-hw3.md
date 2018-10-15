@@ -54,4 +54,22 @@ The first and last Node variables will be the basis of our queue, and the constr
 
 ![image of the code contains Push() for LinkedQueue.cs](example/LQpush.PNG)
 
-Here we throw an exception if the given value is null, and then, depending if the queue is empty or not, we add the element to the queue positionaly. The null reference exception departs from the java code in syntax, but aside from that, this code remains mostly the same as it's java partner. 
+Here we throw an exception if the given value is null, and then, depending if the queue is empty or not, we add the element to the queue positionaly. The null reference exception departs from the java code in syntax, but aside from that, this code remains mostly the same as it's java partner. Next, we have the Pop() implementation:
+
+![image of the code contains Pop() for LinkedQueue.cs](example/LQpop.PNG)
+
+As mentioned earlier, we use the throws QueueUnderflowException to stop the user from poping from a empty queue, otherwise this code simply returns the last element of the queue and adjusts the queue to compensate. Aside from the adjustment on the error throwing, only naming conventions have changed here, the code remains mostly the same. Finally we have the implementation of IsEmpty(). This is the same as the implementation as the java code aside from syntax and naming, so I don't feel it needs to be shown here.
+
+The final file we have to translate is the main.java, containing the actual bulk of our code. I made this file with my Program.cs. Let's look over some of the code:
+
+![Code for generateBinaryRepresentationList](example/PRMgenbin.PNG)
+
+Here we have the code inside GenerateBinaryRepresentationList(). The purpose of this code is to A function for generating the list of binary numbers for a given number. We start by genrating a linked queue of dynamic strings, and a linked list of strings. If the given value to genrate it binary is negative, it catches the error and fails as we did not set up for this. Nest we setup the binary tree based on the number of binary values we have to count from. Next, we have the code of the main:
+
+![Code for main in Program.cs](example/PRMmain.PNG)
+
+First we have some error code for if the user does not give the right number of arguments, including a return out. Mainly some syntax differences here, such as using console istead of system. Next we parse the list of ints with a try catch to make sure all the values are valid. Finally in a foreach loop we print out all the binary values, the result looks like this:
+
+![Results of code in main](example/hw3result.PNG)
+
+With this, the code is complete, I built the solution and it was in expected parameters. With this, the project was submitted as you see here.
