@@ -36,22 +36,22 @@ I started with Node.java file. This translation was pretty much exactly the same
 
 Moving on, I created my Queue interface, I had to change the name to IQueueInterface.cs to follow the naming convention of interfaces in C#. From here we made some minor changes, let's look at the code:
 
-![Interface code in C#](examples/cinterface.PNG)
+![Interface code in C#](example/cinterface.PNG)
 
 We notice a few changes I had to make. The first is that we added our namespace, SolHW. Next, although the format of the interface is close to that of it's java counterpart, we have removed the Throws syntax on Pop(), conveted variable types like Boolean to the C# equilvalent bool, and changed names based on C# conventions. The Throws syntax is not used in C#, so although I reference it with the XML comments, I will not actually code it in here. I will be used later when I actually implement the interface. As the other changes are self-explanatory, let's move onto the next file.
 
 Next, I had edits for the QueueUndeflowException file in java to C#. This one remains MOSTLY the same, with one major syntax adjustment:
 
-![Exception code in C#](examples/cexception.PNG)
+![Exception code in C#](example/cexception.PNG)
 
 Here, we had to adjust the actual call inside each exception, as C# uses base() implementation via interface rather than using Super() like java. Additionally, we make QueueUndeflowException implement the Exception interface from system to allow the proper inhiertance of funtionality. As always, we include all of this code inside SolHW.
 
 With this code out of the way, we move onto the LinkedQueue. This class implemented the actual code from our interface from earlier. The purpose of this code was to use Node.cs and QueueUnderflowException with the inteface to create a singly linked First In, First Out (or FIFO) queue. We start with a front and back node, as well as a constructor, like so:
 
-![image of the code contains variable info for LinkedQueue.cs](examples/LQvars.PNG)
+![image of the code contains variable info for LinkedQueue.cs](example/LQvars.PNG)
 
 The first and last Node variables will be the basis of our queue, and the constructor thusly intializes them as null values. We do not allow a constuctor with given values to avoid the error checking of non-nullable types at intialization. Next up, we implement the Push() function from the interface:
 
-![image of the code contains Push() for LinkedQueue.cs](examples/LQpush.PNG)
+![image of the code contains Push() for LinkedQueue.cs](example/LQpush.PNG)
 
 Here we throw an exception if the given value is null, and then, depending if the queue is empty or not, we add the element to the queue positionaly. The null reference exception departs from the java code in syntax, but aside from that, this code remains mostly the same as it's java partner. 
