@@ -26,5 +26,14 @@ namespace proj.Controllers
 
             return View();
         }
+
+        // view for my converter page
+        public ActionResult Converter()
+        {
+            //Holds title message for the h2 element
+            ViewBag.Message = "Convert Miles to Metric";
+            return View();
+
+        }
     }
 }

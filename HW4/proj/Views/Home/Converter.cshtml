@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Converter";
+}
+<h2>@ViewBag.Message</h2>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Converter</title>
+</head>
+<body>
+    <div>
+        <div class="row">
+            <form>
+                <div class="col-md-6">
+                    <h4><b>Miles</b></h4>
+                    <input type="number" name="eyes"  min="1" />
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Breakline -->
+                    <hr>
+                    <!-- Radio buttons for each of the options for the mile conversions-->
+                    <input type="radio" name="millimeters" value="millimeters" checked>Millimeters<br>
+                    <input type="radio" name="centimeters" value="centimeters">Centimeters<br>
+                    <input type="radio" name="meters" value="meters">Meters<br>
+                    <input type="radio" name="kilometers" value="kilometers">Kiloimeters<br>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
