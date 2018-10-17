@@ -65,11 +65,12 @@ namespace proj.Controllers
                 }
                 // Debug message
                 System.Diagnostics.Debug.WriteLine("Converting answer based on radio field");
-            }
 
-            // The output message for the user
-            string statement = usrInput + " is equal to " + Convert.ToString(result) + " " + radioField;
-            ViewBag.statement = statement;
+                // The output message for the user
+                string statement = usrInput + " is equal to " + Convert.ToString(result) + " " + radioField;
+                ViewBag.statement = statement;
+            }
+           
 
             //Holds title message for the h2 element
             ViewBag.Message = "Convert Miles to Metric";

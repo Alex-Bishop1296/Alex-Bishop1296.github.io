@@ -8,12 +8,13 @@
 </head>
 <body>
     <div>
-        <div class="row">
-            <form method="get" form action="/Home/Converter">
+        <form method="get" form action="/Home/Converter">
+            <div class="row">
+
                 <!-- Div for the number input-->
                 <div class="col-md-6">
                     <h4><b>Miles</b></h4>
-                    <input type="number" name="miles"  min="1" />
+                    <input type="number" name="miles" min="1" />
                 </div>
 
                 <!-- Div for the radio buttons-->
@@ -26,12 +27,17 @@
                     <input type="radio" name="units" value="meters">Meters<br>
                     <input type="radio" name="units" value="kilometers">Kiloimeters<br>
                 </div>
-            </form>
-        </div>
-        <!-- Button to do the calculations-->
-        <div class="row center-block">
-            <button class="btn btn-primary" type="submit">Convert</button>
 
-        </div>
+            </div>
+            <!-- Button to do the calculations-->
+            <div class="row center-block">
+                <button class="btn btn-primary" type="submit">Convert</button>
+                @if (ViewBag.statement != null)
+                {
+                    <h2>@ViewBag.statement</h2>
+                }
+
+            </div>
+        </form>
     </div>
 </body>
