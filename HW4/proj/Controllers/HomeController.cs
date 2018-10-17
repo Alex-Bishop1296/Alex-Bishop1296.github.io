@@ -67,7 +67,7 @@ namespace proj.Controllers
                 System.Diagnostics.Debug.WriteLine("Converting answer based on radio field");
 
                 // The output message for the user
-                string statement = usrInput + " is equal to " + Convert.ToString(result) + " " + radioField;
+                string statement = usrInput + " miles is equal to " + Convert.ToString(result) + " " + radioField;
                 ViewBag.statement = statement;
             }
            
