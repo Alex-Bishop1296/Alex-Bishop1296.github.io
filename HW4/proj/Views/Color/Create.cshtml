@@ -1,6 +1,25 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Create";
 }
 
-<h2>Create a New Color</h2>
+<h2>Create a new Color</h2>
+
+<p>Please enter colors in HTML hexadecimal format: #AABBCC</p>
+<!-- razer HTML helper form used here-->
+@using (Html.BeginForm())
+{
+    <!-- razer HTML heler text box 1-->
+    <h5><b>First Color</b></h5>
+    @Html.TextBox("TextBoxOne", null, new { @class = "form-control", placeholder = "#ffffff", required = "required"})
+
+    <!-- razer HTML heler text box 2-->
+    <h5><b>Second Color</b></h5>
+    @Html.TextBox("TextBoxTwo", null, new { @class = "form-control", placeholder = "#ffffff", required = "required"})
+
+    <br />
+
+    <!-- submission button-->
+    <button class="button btn-primary" type="submit">Mix Colors</button>
+}
 
