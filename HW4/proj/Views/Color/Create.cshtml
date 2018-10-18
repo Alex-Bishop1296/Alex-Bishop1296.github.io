@@ -11,11 +11,11 @@
 {
     <!-- razer HTML heler text box 1-->
     <h5><b>First Color</b></h5>
-    @Html.TextBox("TextBoxOne", null, new { @class = "form-control", placeholder = "#ffffff", required = "required"})
+    @Html.TextBox("TextBoxOne", null, new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required"})
 
     <!-- razer HTML heler text box 2-->
     <h5><b>Second Color</b></h5>
-    @Html.TextBox("TextBoxTwo", null, new { @class = "form-control", placeholder = "#ffffff", required = "required"})
+    @Html.TextBox("TextBoxTwo", null, new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required"})
 
     <br />
 
