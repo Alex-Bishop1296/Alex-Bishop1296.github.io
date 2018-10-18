@@ -7,19 +7,22 @@
 
 <p>Please enter colors in HTML hexadecimal format: #AABBCC</p>
 <!-- razer HTML helper form used here-->
+<!-- ex html.BeginForm("viewname", "ControllerName", FormMethod.Post)-->
 @using (Html.BeginForm())
 {
     <!-- razer HTML heler text box 1-->
     <h5><b>First Color</b></h5>
-    @Html.TextBox("TextBoxOne", null, new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required"})
+    @Html.TextBox("firstColor", null, htmlAttributes:new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required"})
 
     <!-- razer HTML heler text box 2-->
     <h5><b>Second Color</b></h5>
-    @Html.TextBox("TextBoxTwo", null, new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required"})
+    @Html.TextBox("secondColor", null, htmlAttributes:new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required"})
 
     <br />
 
     <!-- submission button-->
     <button class="button btn-primary" type="submit">Mix Colors</button>
 }
+
+<!-- Going to show results via viewbag-->
 
