@@ -10,19 +10,32 @@
 <!-- ex html.BeginForm("viewname", "ControllerName", FormMethod.Post)-->
 @using (Html.BeginForm())
 {
-    <!-- razer HTML heler text box 1-->
+    <!-- razer HTML helper text box 1-->
     <h5><b>First Color</b></h5>
-    @Html.TextBox("firstColor", null, htmlAttributes:new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required"})
+    @Html.TextBox("firstColor", null, htmlAttributes: new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required" })
 
-    <!-- razer HTML heler text box 2-->
+    <!-- razer HTML helper text box 2-->
     <h5><b>Second Color</b></h5>
-    @Html.TextBox("secondColor", null, htmlAttributes:new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required"})
-
-    <br />
+    @Html.TextBox("secondColor", null, htmlAttributes: new { @class = "form-control", placeholder = "#ffffff", pattern = "#[0-9-Fa-f]{6}", required = "required" })
 
     <!-- submission button-->
-    <button class="button btn-primary" type="submit">Mix Colors</button>
+    <br />
+    <button class="btn btn-primary" type="submit">Mix Colors</button>
+
+    <!-- Going to show results via viewbag-->
+    <br />
+    <div class="container">
+        <div id="row">
+            <div class="col-sm-2" style="@ViewBag.firstC"></div>
+            <div class="col-sm-2" style="text-align: center; line-height: 80px;font-size:28px; width: 80px; height: 80px;">@ViewBag.plus </div>
+            <div class="col-sm-2" style="@ViewBag.secondC"></div>
+
+            <div class="col-sm-2" style="text-align: center; line-height: 80px; font-size:28px; width: 80px; height: 80px;">@ViewBag.equ </div>
+
+            <div class="col-sm-2" style="@ViewBag.mixC"></div>
+        </div>
+    </div>
 }
 
-<!-- Going to show results via viewbag-->
+
 

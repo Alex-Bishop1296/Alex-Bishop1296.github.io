@@ -36,6 +36,10 @@ namespace proj.Controllers
                 Color colorOne = ColorTranslator.FromHtml(firstColor);
                 Color colorTwo = ColorTranslator.FromHtml(secondColor);
 
+                // Print the colors translated to confirm they are expected values
+                System.Diagnostics.Debug.WriteLine("colorOne = " + Convert.ToString(colorOne));
+                System.Diagnostics.Debug.WriteLine("colorTwo = " + Convert.ToString(colorTwo));
+
                 // Mix the two colors via ints
                 // Mix Alpha with overflow check
                 int mixA = colorOne.A + colorTwo.A;
@@ -50,10 +54,17 @@ namespace proj.Controllers
                 int mixB = colorOne.B + colorTwo.B;
                 if (mixB > 255) mixB = 255;
 
-
+                // Mix the colors and print Debug message to check mix
                 Color colorMix = Color.FromArgb(mixA, mixR, mixG, mixB);
                 System.Diagnostics.Debug.WriteLine("mixColor = " + Convert.ToString(colorMix));
-                
+
+                // Assign values for viewbag for use in html
+                ViewBag.firstC = "width: 100px; height: 100px; border: 2px solid #000000; background: " + ColorTranslator.ToHtml(colorOne) + "; ";
+                ViewBag.secondC = "width: 100px; height: 100px; border: 2px solid #000000; background: " + ColorTranslator.ToHtml(colorTwo) + "; ";
+                ViewBag.mixC = "width: 100px; height: 100px; border: 2px solid #000000; background: " + ColorTranslator.ToHtml(colorMix) + "; ";
+                ViewBag.plus = "+";
+                ViewBag.equ = "=";
+
             }
 
             return View();
