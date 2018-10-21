@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>CS 460 Homework 4</h1>
+    <p class="lead">
+        The purpose of this assignment is to learn simple server-side logic. Some basics learned here were GET, POST, query strings,
+        form data and handling all of these items from a ASP.NET MVC 5 application.
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Mile to Metric Converter</h2>
+        <p>
+            Mile to metric conversions.This calculator uses query strings to send form data to the server which performs the calculation
+            and returns the answer to the requested page.
+        </p>
+        <!-- Button to go to the Mile to Metric Converter -->
+        @Html.ActionLink("Try it Out!", "Converter", "Home", null, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h2>Color Chooser</h2>
+        <p>
+            Fun and completely useless online color chooser. This form POST's the data to the server.
+        </p>
+        <!-- Button to go to the Color Chooser-->
+        @Html.ActionLink("Check it Out!", "Create", "Color", null, new { @class = "btn btn-default" })
+    </div>
+</div>
