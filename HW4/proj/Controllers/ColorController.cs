@@ -9,7 +9,10 @@ namespace proj.Controllers
 {
     public class ColorController : Controller
     {
-        // GET: Color
+        /// <summary>
+        /// GET method for allowing user input for the color addition
+        /// </summary>
+        /// <returns>The view for the color chooser page</returns>
         [HttpGet]
         public ActionResult Create()
         {
@@ -17,11 +20,11 @@ namespace proj.Controllers
         }
 
         /// <summary>
-        /// POST method for displaying the asnwer of a color addition
+        /// POST method for displaying the answer of a color addition
         /// </summary>
         /// <param name="firstColor"> The hexstring for the first value the user entered</param>
         /// <param name="secondColor"> The hexstring for the second value the user entered</param>
-        /// <returns> The view with the mixed color for the user</returns>
+        /// <returns>The view for the color chooser page with results</returns>
         [HttpPost]
         public ActionResult Create(string firstColor, string secondColor)
         {
@@ -30,7 +33,7 @@ namespace proj.Controllers
             System.Diagnostics.Debug.WriteLine("secondColor = " + secondColor);
 
             // Check for null trigger
-            if (firstColor != null && secondColor != null)
+            if (firstColor != null && secondColor != null && firstColor != "" && secondColor != "")
             {
                 // Put both items in color objects
                 Color colorOne = ColorTranslator.FromHtml(firstColor);
@@ -63,8 +66,7 @@ namespace proj.Controllers
                 ViewBag.secondC = "width: 100px; height: 100px; border: 2px solid #000000; background: " + ColorTranslator.ToHtml(colorTwo) + "; ";
                 ViewBag.mixC = "width: 100px; height: 100px; border: 2px solid #000000; background: " + ColorTranslator.ToHtml(colorMix) + "; ";
                 ViewBag.plus = "+";
-                ViewBag.equ = "=";
-
+                ViewBag.equl = "=";
             }
 
             return View();
