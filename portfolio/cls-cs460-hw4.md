@@ -32,7 +32,7 @@ This action link creates a link to a button called "Converter" pointing at the "
 
 ![converter html code](example/hw4ex/converterview.PNG)
 
-This will make more sense when we go over the converter code in the Home controller, but I will explain what I can. We start with a header that has a viewbag message. This just grabs the viewbag variable for title from our controller and displays it. Next, in the body, we have a form element with the method "get" and the path to the current page, this will be used for the reload of the page with or without results. Next we have radio buttons and number input field, nothing much to say about these as they just are requirements, you can notice that number field limits inputs to just numberic values (this is not the case for direct input via url). Finally we have a viewable message locked behind a if check, this is where we will put the output of the calculation. This is all fine and good, but now we need to see the actual logic behind displaying this info, we can see this below as the controller code.
+This will make more sense when we go over the converter code in the Home controller, but I will explain what I can. We start with a header that has a viewbag message. This just grabs the viewbag variable for title from our controller and displays it. Next, in the body, we have a form element with the method "get" and the path to the current page, this will be used for the reload of the page with or without results. Next we have radio buttons and number input field, nothing much to say about these as they just are requirements, you can notice that number field limits inputs to just numberic values (this is not the case for direct input via url) and the required requirment stops the user from hitting sumbit with not input (again, does not effect the url). Finally we have a viewable message locked behind a if check, this is where we will put the output of the calculation. This is all fine and good, but now we need to see the actual logic behind displaying this info, we can see this below as the controller code.
 
 ![converter code 1](example/hw4ex/converter1.PNG)
 ![converter code 2](example/hw4ex/converter2.PNG)
@@ -52,8 +52,19 @@ As expected, it displays the conversion below. Note the entered fields in the ur
 
 Note the unit "ducks" in the url. I get an error warning the user to not use the url for input. This is what we want, but what would happen if we tried to put a non-number in the miles field in the url. Well, we would trigger out of the error state as so:
 
-![converter page with 1 mile to ducks error](example/hw4ex/convEX3.PNG)
+![converter page with no miles error escape](example/hw4ex/convEX3.PNG)
 
 We see that the url has been editied, but thanks to our error stating, nothing breaks the webpage. Finally, trying to do another conversion will correctly change the contents.
 
 ![converter page with 2 miles to kilometers](example/hw4ex/convEX4.PNG)
+
+We can see that even with a new radio field and input, the conversion still works correctly. If the user attempts to get around the required checks in the number input field via URL, the various checks in the code prevent the page from breaking. With this done, I branched my code once again and starter on the color chooser. This part of the project required a little more complexity in the design, so let's start breaking it down. We will start with the cshtml for the color mixer view. I should note beforehand that all of this housed in a new view and controller called create and color respectively.
+
+![html code for create view](example/hw4ex/createview.PNG)
+
+Just like the converter, we start with the viewbag, some headers, and the start of a form. One of the major differences this time around is the form element is started using a razor helper function. This goes even further considering that both of our textboxes also use razor helpers. Let me break down some of the useful parts of the parameters of these text boxes. The first ones are simple, the name to access it in the controller method (more on that soon), the default value set to null, and setting the actual stored variable to be dynamic via htmlattributes. Then we have the actual declaration of the form control class with multiple parameters, a placeholder for the format of hexdecimal, then we have a pattern assignment that limits all entries in the input field to full hexadecimal numbers. Finally, as previous, we require each of the fields for input. Note a key differnce here is we need to do less debug due to no query strings in the controller. Speaking of the controller, since the last divs are all for displaying the user input bases on the controller output, time to take a look at it.
+
+![color mixer controller code 1](example/hw4ex/create1.PNG)
+![color mixer controller code 2](example/hw4ex/create2.PNG)
+![color mixer controller code 3](example/hw4ex/create3.PNG)
+
