@@ -68,3 +68,16 @@ Just like the converter, we start with the viewbag, some headers, and the start 
 ![color mixer controller code 2](example/hw4ex/create2.PNG)
 ![color mixer controller code 3](example/hw4ex/create3.PNG)
 
+Breaking this down, the first code we have is the default view of the page, with at HttpGet tag. This is here so we display the default view of the page when it is first visted without input. Next, we have the POST method for diplaying the answer of the color additions. It starts with taking the parameters from the view via the form elements. After this, we print debug, and start an if statement if the inputs are valid. In this, we translated the hexidecimal html to color objects, add those individual color elements of ARGB (Alpha, Red, Green, Blue) with an overflow check to cap it at valid values, then assign the new mixed elements and other elements to viewbag parameters that can be grabbed in the returned view. The page for input and post execution looks like so:
+
+![color mixer in action 1](example/hw4ex/crea1.PNG)
+![color mixer in action 2](example/hw4ex/crea2.PNG)
+
+We see here the color mixer has a start page, and works as intended with needed colors we also have valid error messages for no input and misinput via the input field limiters. With this completed, the project was ready, so I merge back the branchs by merging chooser into converter like so
+
+```
+git checkout chooser
+git merge --no-ff converter
+```
+
+This resulted in some merge conflicts I had to resolve with links on my homepage and the proj file. When those resolutions were completed I merge chooser into hw-four and hw-four into master, completing this assignment.
