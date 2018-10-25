@@ -11,6 +11,9 @@ namespace ApartmentsWeb.Models
     {
         // Required fields on the form
 
+        [Key] [Required]
+        private int ID { get; set; }
+
         // first name of tenant
         [Required]
         public string FirstName { get; set; }
