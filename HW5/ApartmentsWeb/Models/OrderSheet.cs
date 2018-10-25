@@ -7,12 +7,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApartmentsWeb.Models
 {
+    /// <summary>
+    /// Contains the fields for an order sheet in the Ordersheet table
+    /// </summary>
     public class OrderSheet
     {
         // Required fields on the form
 
-        [Key] [Required]
-        private int ID { get; set; }
+        [Key]
+        public int ID { get; set; }
 
         // first name of tenant
         [Required]

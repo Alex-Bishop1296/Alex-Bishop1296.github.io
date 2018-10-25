@@ -8,11 +8,12 @@ namespace ApartmentsWeb.DAL
     /// </summary>
 	public class OrderContext : DbContext
     {
-		public OrderContext() : base("name=OurOrders")
+		//base points to the name of the database
+		public OrderContext() : base("name=WorkOrders")
         {
 
         }
 
-		public virtual DbSet<OrderSheet> Order { get; set; }
+		public virtual DbSet<OrderSheet> OrderSheets { get; set; }
     }
 }
