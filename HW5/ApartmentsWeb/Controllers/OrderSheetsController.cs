@@ -35,9 +35,11 @@ namespace ApartmentsWeb.Controllers
             return View();
         }
 
-        // POST: OrderSheets/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Uses GET-POST-Retrieve to add elements to the table via create form
+        /// </summary>
+        /// <param name="orderSheet">The entry to add to OrderSheets table</param>
+        /// <returns>The view of the form for submiting work orders</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,FirstName,LastName,PhoneNumber,ApartmentName,UnitNumber,RequestDetails,Permission,SubmitTime")] OrderSheet orderSheet)
@@ -52,7 +54,10 @@ namespace ApartmentsWeb.Controllers
             return View(orderSheet);
         }
 
-
+        /// <summary>
+        /// Protected Disposal method
+        /// </summary>
+        /// <param name="disposing">To run method or not via bool</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
