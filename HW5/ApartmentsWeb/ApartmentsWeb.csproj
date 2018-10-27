@@ -162,6 +162,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\down.sql" />
     <Content Include="App_Data\up.sql" />
     <Content Include="App_Data\WorkOrders.mdf" />
     <Content Include="App_Data\WorkOrders_log.ldf">
@@ -205,9 +206,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\OrderSheets\Create.cshtml" />
-    <Content Include="Views\OrderSheets\Delete.cshtml" />
-    <Content Include="Views\OrderSheets\Details.cshtml" />
-    <Content Include="Views\OrderSheets\Edit.cshtml" />
     <Content Include="Views\OrderSheets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />

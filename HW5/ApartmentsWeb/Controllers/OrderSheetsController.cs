@@ -15,28 +15,21 @@ namespace ApartmentsWeb.Controllers
     {
         private OrderContext db = new OrderContext();
 
-        // GET: OrderSheets
+        /// <summary>
+        /// GET the view of all of the items on the OrderSheet table by SubmitTime
+        /// </summary>
+        /// <returns>View of table in webpage</returns>
         public ActionResult Index()
         {
-            return View(db.OrderSheets.ToList());
+            var list = db.OrderSheets.ToList();
+            var orderedList = list.OrderBy(item => item.SubmitTime);
+            return View(orderedList);
         }
 
-        // GET: OrderSheets/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OrderSheet orderSheet = db.OrderSheets.Find(id);
-            if (orderSheet == null)
-            {
-                return HttpNotFound();
-            }
-            return View(orderSheet);
-        }
-
-        // GET: OrderSheets/Create
+        /// <summary>
+        /// Show the user via GET the view for submiting a order
+        /// </summary>
+        /// <returns>view of order form</returns>
         public ActionResult Create()
         {
             return View();
@@ -47,7 +40,7 @@ namespace ApartmentsWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,PhoneNumber,ApartmentName,UnitNumber,RequestDetails,Permission")] OrderSheet orderSheet)
+        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,PhoneNumber,ApartmentName,UnitNumber,RequestDetails,Permission,SubmitTime")] OrderSheet orderSheet)
         {
             if (ModelState.IsValid)
             {
@@ -59,62 +52,6 @@ namespace ApartmentsWeb.Controllers
             return View(orderSheet);
         }
 
-        // GET: OrderSheets/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OrderSheet orderSheet = db.OrderSheets.Find(id);
-            if (orderSheet == null)
-            {
-                return HttpNotFound();
-            }
-            return View(orderSheet);
-        }
-
-        // POST: OrderSheets/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,PhoneNumber,ApartmentName,UnitNumber,RequestDetails,Permission")] OrderSheet orderSheet)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(orderSheet).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(orderSheet);
-        }
-
-        // GET: OrderSheets/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OrderSheet orderSheet = db.OrderSheets.Find(id);
-            if (orderSheet == null)
-            {
-                return HttpNotFound();
-            }
-            return View(orderSheet);
-        }
-
-        // POST: OrderSheets/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            OrderSheet orderSheet = db.OrderSheets.Find(id);
-            db.OrderSheets.Remove(orderSheet);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

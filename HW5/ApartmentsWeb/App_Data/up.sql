@@ -1,4 +1,5 @@
-﻿CREATE TABLE [dbo].[OrderSheets]
+﻿/* Tablename needs to be plural for all of the generated Controller to work */
+CREATE TABLE [dbo].[OrderSheets]
 (	
     [ID]				INT IDENTITY (1,1)		NOT NULL,
     [FirstName]			NVARCHAR(64)			NOT NULL,
@@ -13,6 +14,7 @@
 );
 GO
 
+/* Seeds the new table OrderSheets with 5 entries */
 INSERT INTO [dbo].[OrderSheets] (FirstName, LastName, PhoneNumber, ApartmentName, UnitNumber, RequestDetails, Permission, SubmitTime) VALUES
 	 ('James','Sunderland','14996678594','Tranquil Pyramid','43','Lost Key in the Toilet ... again.','1','2018-10-12 09:00:00'),
 	 ('Henry','Townshed','18724789234','Morning Embrace','23','I can not get out of my room.','1','2018-10-12 11:00:00'),

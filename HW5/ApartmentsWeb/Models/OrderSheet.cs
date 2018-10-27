@@ -48,7 +48,7 @@ namespace ApartmentsWeb.Models
         // timestap of request paired to datetime value
         private DateTime date = DateTime.Now;
         [Required]
-        private DateTime SubmitTime
+        public DateTime SubmitTime
         {
             get { return date; }
             set { date = value; }
