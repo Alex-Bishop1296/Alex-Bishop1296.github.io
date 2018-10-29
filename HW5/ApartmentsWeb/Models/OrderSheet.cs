@@ -20,33 +20,39 @@ namespace ApartmentsWeb.Models
 
         // first name of tenant
         [Required]
+        [MaxLength(64)]
         [DisplayName("First Name")]
         public string FirstName { get; set; }
 
         // last name of the tenant
         [Required]
+        [MaxLength(128)]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
         // phone number of the tenant
         [Required]
         [Phone]
+        [MaxLength(14)]
         [RegularExpression(@"^\d{1}-\d{3}-\d{3}-\d{4}$", ErrorMessage = "Please format to 1-999-999-9999")]
         [DisplayName("Phone Number")]
         public string PhoneNumber { get; set; }
 
         // apartment name the tenant is in
         [Required]
+        [MaxLength(64)]
         [DisplayName("Building Name")]
         public string ApartmentName { get; set; }
 
         // unit of the apartement the tenant is in
         [Required]
+        [MaxLength(64)]
         [DisplayName("Room Number")]
         public int UnitNumber { get; set; }
 
         // the details of the request of the tenant
         [Required]
+        [MaxLength(1000)]
         [DisplayName("Request Description")]
         public string RequestDetails { get; set; }
 
