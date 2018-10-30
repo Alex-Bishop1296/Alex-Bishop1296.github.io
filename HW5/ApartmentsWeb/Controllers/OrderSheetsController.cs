@@ -42,7 +42,8 @@ namespace ApartmentsWeb.Controllers
         /// <returns>The view of the form for submiting work orders</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,PhoneNumber,ApartmentName,UnitNumber,RequestDetails,Permission,SubmitTime")] OrderSheet orderSheet)
+        public ActionResult Create([Bind(Include = 
+            "ID,FirstName,LastName,PhoneNumber,ApartmentName,UnitNumber,RequestDetails,Permission,SubmitTime")] OrderSheet orderSheet)
         {
             if (ModelState.IsValid)
             {

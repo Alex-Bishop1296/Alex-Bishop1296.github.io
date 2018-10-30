@@ -45,8 +45,8 @@ namespace ApartmentsWeb.Models
         public string ApartmentName { get; set; }
 
         // unit of the apartement the tenant is in
+        // strange, adding the maxlength here breaks the code
         [Required]
-        [MaxLength(64)]
         [DisplayName("Room Number")]
         public int UnitNumber { get; set; }
 

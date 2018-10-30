@@ -40,4 +40,15 @@ The CSHTML for the create view looks like so:
 ![code for create 1](example/hw5ex/createcode1.PNG)
 ![code for create 2](example/hw5ex/createcode2.PNG)
 ![code for create 3](example/hw5ex/createcode3.PNG)
-A bit to talk about here, we open by importing our model for the table, this will allow us to access elements from it.
+A bit to talk about here, we open by importing our model for the table, this will allow us to access elements from it. The first few input fields are the same ones the scaffolding put in, editor fields for being single string fields for firstname and lastname, and phone number; as well as number input fields for unit number. Note that these fields have their requirements carry over from the annotations in the model, more on that when we look at the view. The first departure from the scaffolding is the apartment unit. I decided to let it be one of multiple options rather than allowing the user to enter their own, after all the system should only have one of a few options as the company can only own so many units. Next, we have the request details, which has been changed to a text area to allow better vision of larger requests. These elements are combined with the controller CS, whuch we will look at now:
+
+![code for create controller](example/hw5ex/createcontroller.PNG)
+The first part of this controller is simply the GET method for displaying the input form. The next part however, is our GET-POST-Redirect loop. This allows us to add the item to the queue, post them to the staging area, and redirect them to the table. We do binding of the elements to a object of the model to make sure it fits in the table. With this all out of the way, let's look how the website functions:
+![view for create](example/hw5ex/createviewblank.PNG)
+Here is what blank view looks like, note we have no field for the sumbit time as we generate that on our own, lets put in a test field and see what it does:
+![create example 1](example/hw5ex/createEX1.PNG)
+This is the data, before submission, upon hitting the submit button, it routes us back to the table view, and we see:
+![create example 2](example/hw5ex/createEX2.PNG)
+We can see at the bottom the new entry has been added. To show the actual error checking, let's try to submit and empty form:
+![create example 3](example/hw5ex/createEX3.PNG)
+The system correctly throws errors for each field that is empty. With this all set and done, my project has been completed. I merged back to master and wrote the view portfolio entry youy see now.
