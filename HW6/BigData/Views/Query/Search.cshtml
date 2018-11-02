@@ -1,0 +1,33 @@
+﻿<!-- Calling the database model to allow the rendering of information-->
+@model IEnumerable<BigData.Models.ViewModels.PersonVM>
+@{
+    ViewBag.Title = "Search";
+}
+
+<div class="row">
+    <!-- Search Bar-->
+    <div class="col-lg-12">
+        <h1 class="text-center">Search</h1>
+        <!-- Search for -->
+        @using (Html.BeginForm("Search", "Query", FormMethod.Get))
+        {
+        <input class="form-control" type="text" name="input" placeholder="Search by client name" />
+        <button type="submit" class="btn btn-primary searchIcon">Search</button>
+        }
+    </div>
+</div>
+
+@if (ViewBag.Result = true)
+{
+    <table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.FullName, "IndividualDetails", "Querry", new { Name = item.FullName }, null)
+                </td>
+            </tr>
+        }
+    </table>
+}
+

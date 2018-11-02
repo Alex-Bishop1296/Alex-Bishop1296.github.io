@@ -1,0 +1,13 @@
+﻿<!-- Calling the database model to allow the rendering of information-->
+@model IEnumerable<BigData.Models.ViewModels.PersonVM>
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <!-- Search Bar-->
+    <div class="col-lg-12">
+        @Model.FirstOrDefault.FullName
+    </div>
+</div>
+
