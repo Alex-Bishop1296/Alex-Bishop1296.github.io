@@ -3,11 +3,52 @@
 @{
     ViewBag.Title = "Details";
 }
+<div class="content">
+    <div class="row">
+        @* Large Column Left *@
 
-<div class="row">
-    <!-- Search Bar-->
-    <div class="col-lg-12">
-        @Model.FirstOrDefault.FullName
+        <div class="col-md-6">
+            <!--First Name Area-->
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><b> @Model.FirstOrDefault().FullName</b></h2>
+                    <hr />
+                </div>
+            </div>
+            <!--Peferred Name Area-->
+            <div class="row">
+                <div class="col-md-4"><p><b>   PreferredName:</b></p></div>
+                <div class="col-md-8"><p>@Model.FirstOrDefault().PreferredName</p></div>
+            </div>
+            <!--Phone Number Area-->
+            <div class="row">
+                <div class="col-md-4"><p><b>   Phone:</b></p></div>
+                <div class="col-md-8"><a href="tel:@Model.FirstOrDefault().PhoneNumber">@Model.FirstOrDefault().PhoneNumber</a></div>
+            </div>
+            <!--Fax Number Area-->
+            <div class="row">
+                <div class="col-md-4"><p><b>   Fax:</b></p></div>
+                <div class="col-md-8"><p>@Model.FirstOrDefault().FaxNumber</p></div>
+            </div>
+            <!--Email Area-->
+            <div class="row">
+                <div class="col-md-4"><p><b>   Email:</b></p></div>
+                <div class="col-md-8"><a href="mailto:@Model.FirstOrDefault().EmailAddress">@Model.FirstOrDefault().EmailAddress</a></div>
+            </div>
+            <!--Date of Arrival Area-->
+            <div class="row">
+                <div class="col-md-4"><p><b>   Start Date:</b></p></div>
+                <div class="col-md-8"><p>@Model.FirstOrDefault().ValidFrom</p></div>
+            </div>
+
+        </div>
+
+        <!-- Large Column Right -->
+        <div class="col-lg-6">
+            <div>
+                <!--Photo Area-->
+                <img src="https://via.placeholder.com/250x350?text=Photo" />
+            </div>
+        </div>
     </div>
 </div>
-

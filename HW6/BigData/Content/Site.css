@@ -1,7 +1,15 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: slategrey;
 }
+
+.content {
+    padding-left: 5em;
+    padding-right: 5em;
+    background-color: white;
+}
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -14,4 +22,20 @@
 */
 .dl-horizontal dt {
     white-space: normal;
+}
+
+/*Spacing for the logo*/
+.navbar-brand {
+    float: none
+}
+
+/*These two classes are used for moving the search button to the side of the bar*/
+.containerClass {
+    position: relative;
+}
+
+.sumbitClass {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

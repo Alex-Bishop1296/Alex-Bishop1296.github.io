@@ -40,7 +40,7 @@ namespace BigData.Controllers
 
         public ActionResult Details(string Name)
         {
-            if(Name == null || Name == "")
+            if (Name == null || Name == "")
             {
                 // Redirect to search page if URL is edited
                 return RedirectToAction("Search");
@@ -61,8 +61,7 @@ namespace BigData.Controllers
                                                        ValidFrom = x.ValidFrom,
                                                    }).ToList();
                 return View(IndividualDetails);
-                                                        
-                }
+
             }
         }
     }
