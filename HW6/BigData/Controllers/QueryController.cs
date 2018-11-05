@@ -20,7 +20,7 @@ namespace BigData.Controllers
         /// Return the view of the search with results
         /// </summary>
         /// <param name="input">name searched to get results</param>
-        /// <returns></returns>
+        /// <returns>either blank search form or search form with names view</returns>
         [HttpGet]
         public ActionResult Search(string input)
         {
@@ -49,21 +49,18 @@ namespace BigData.Controllers
         /// Return the results a search in detail based on given name
         /// </summary>
         /// <param name="NameEntry">Exact name of the person that was searched for</param>
-        /// <returns></returns>
-
+        /// <returns>view with details of name given</returns>
+        [HttpGet]
         public ActionResult Details(string NameEntry)
         {
-            // Check if the input is valid
+            //Check if the input is valid
             if (NameEntry == null || NameEntry == "")
             {
                 // Redirect to search page if URL is edited
                 return RedirectToAction("Search");
             }
-            // Otherwise run the search
-            else
-            {
-                // Get the base details of the listed search of an person in the system
-                List<PersonVM> IndividualDetails = db.People
+            // Get the base details of the listed search of an person in the system
+            List<PersonVM> IndividualDetails = db.People
                                                    .Where(x => x.FullName.Equals(NameEntry))
                                                    .Select(x => new PersonVM
                                                    {
@@ -75,44 +72,50 @@ namespace BigData.Controllers
                                                        ValidFrom = x.ValidFrom,
                                                    }).ToList();
 
-              
-                //Customer Company Details
-                var CustomerDetails = db.People
-                                        .Where(p => p.FullName == NameEntry)
-                                        .Include("PrimaryContactPersonID")
-                                        .SelectMany(p => p.Customers2).ToList();
-                //Queries through System.Data.Entity.Core.EntityCommandExecutionException 
-                try
+            //Customer Company Details
+            var CustomerDetails = db.People
+                                    .Where(p => p.FullName == NameEntry)
+                                    .Include("PrimaryContactPersonID")
+                                    .SelectMany(p => p.Customers2).ToList();
+
+            if (CustomerDetails.Count == 0)
+            {
+                return View(IndividualDetails);
+            }
+            else
+            {
+
+                //Items Purchased Details See PersonVM.cs. This query navigates through several tables to get the return the 
+                var ItemDetails = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                    .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
+                                    .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
+                                    .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10).ToList();
+
+                //A list of salesman for the top 10 items sold to the customer.
+                var SalesMen = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                             .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
+                                             .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
+                                             .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10)
+                                             .Include("InvoiceID").Select(x => x.Invoice).Include("SalespersonID").Select(x => x.Person4)
+                                             .ToList();
+                //Items Purchased Details see PersonVM.cs
+
+                List<ItemPurchase> Top10Items = new List<ItemPurchase>();
+
+                //Intializes a list of ItemPurchased classes that contains the details for the top 10 items sold to the customer.
+                for (int i = 0; i < 10; i++)
                 {
-                    //Items Purchased Details See PersonVM.cs. This query navigates through several tables to get the return the 
-                    var ItemDetails = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
-                                        .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
-                                        .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
-                                        .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10).ToList();
-
-                    //A list of salesman for the top 10 items sold to the customer.
-                    var SalesMen = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
-                                                 .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
-                                                 .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
-                                                 .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10)
-                                                 .Include("InvoiceID").Select(x => x.Invoice).Include("SalespersonID").Select(x => x.Person4)
-                                                 .ToList();
-                    //Items Purchased Details see PersonVM.cs
-
-                    List<ItemPurchase> Top10Items = new List<ItemPurchase>();
-
-                    //Intializes a list of ItemPurchased classes that contains the details for the top 10 items sold to the customer.
-                    for (int i = 0; i < 10; i++)
+                    Top10Items.Add(new ItemPurchase
                     {
-                        Top10Items.Add(new ItemPurchase
-                        {
-                            StockItemID = ItemDetails.ElementAt(i).StockItemID,
-                            ItemDescription = ItemDetails.ElementAt(i).Description,
-                            LineProfit = ItemDetails.ElementAt(i).LineProfit,
-                            SalesPerson = SalesMen.ElementAt(i).FullName
-                        });
-                    }
-                    PersonVM Customer = new PersonVM
+                        StockItemID = ItemDetails.ElementAt(i).StockItemID,
+                        ItemDescription = ItemDetails.ElementAt(i).Description,
+                        LineProfit = ItemDetails.ElementAt(i).LineProfit,
+                        SalesPerson = SalesMen.ElementAt(i).FullName
+                    });
+                }
+                List<PersonVM> Customers = new List<PersonVM>
+                {
+                    new PersonVM
                     {//Default Details See PersonVM.cs. Basic details about the person being searched.
                         FullName = IndividualDetails.First().FullName,
                         PreferredName = IndividualDetails.First().PreferredName,
@@ -140,40 +143,13 @@ namespace BigData.Controllers
                                        .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
                                        .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices)
                                        .Include("InvoiceID").SelectMany(x => x.InvoiceLines).Sum(x => x.LineProfit),
-                        //Items purchased details. A list of details about the top 10 most profitable items sold to the customer. See ItemPurchased.cs
+                        //Items purchased details. A list of details about the top 10 most profitable items sold to the customer
                         ItemPurchaseSummary = Top10Items
-                    };
-
-
-                    //Majority of the debug block
-                    Debug.WriteLine(Customer.FullName);
-                    Debug.WriteLine(Customer.PreferredName);
-                    Debug.WriteLine(Customer.PhoneNumber);
-                    Debug.WriteLine(Customer.FaxNumber);
-                    Debug.WriteLine(Customer.EmailAddress);
-                    Debug.WriteLine(Customer.ValidFrom);
-                    Debug.WriteLine(Customer.CompanyName);
-                    Debug.WriteLine(Customer.CompanyPhone);
-                    Debug.WriteLine(Customer.CompanyFax);
-                    Debug.WriteLine(Customer.CompanyWebsite);
-                    Debug.WriteLine(Customer.CompanyValidFrom);
-                    Debug.WriteLine(Customer.Orders);
-                    Debug.WriteLine(Customer.GrossSales);
-                    Debug.WriteLine(Customer.GrossProfit);
-                    for (int x = 0; x < 10; x++)
-                    {
-                        Debug.WriteLine(Customer.ItemPurchaseSummary.ElementAt(x).StockItemID);
-                        Debug.WriteLine(Customer.ItemPurchaseSummary.ElementAt(x).ItemDescription);
-                        Debug.WriteLine(Customer.ItemPurchaseSummary.ElementAt(x).LineProfit);
-                        Debug.WriteLine(Customer.ItemPurchaseSummary.ElementAt(x).SalesPerson);
-
                     }
-                    return View(IndividualDetails);
-                }
-                catch (System.Data.Entity.Core.EntityCommandExecutionException) { }
+                };
 
-                return View();
-
+                ViewBag.Result = true;
+                return View(Customers);
             }
         }
     }

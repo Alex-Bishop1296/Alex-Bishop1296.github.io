@@ -5,8 +5,7 @@
 }
 <div class="content">
     <div class="row">
-        @* Large Column Left *@
-
+        <!-- Large Column Left-->
         <div class="col-md-6">
             <!--First Name Area-->
             <div class="row">
@@ -41,31 +40,32 @@
                 <div class="col-md-8"><p>@Model.FirstOrDefault().ValidFrom</p></div>
             </div>
 
-            @if (Model.FirstOrDefault().CompanyName != null)
+            <!--Feature 2 Code, allows additional details to be displayed-->
+            @if (ViewBag.Result == true)
             {
                 <h3>Company Details</h3>
                 <hr />
-
+                <!--Company Name Area-->
                 <div class="row">
                     <div class="col-md-4"><p>Company Name:</p></div>
                     <div class="col-md-8"><p>@Model.FirstOrDefault().CompanyName</p></div>
                 </div>
-
+                <!--Company Phone Area-->
                 <div class="row">
                     <div class="col-md-4"><p>Phone Number:</p></div>
                     <div class="col-md-8"><p>@Model.FirstOrDefault().CompanyPhone</p></div>
                 </div>
-
+                <!--Company Fax Area-->
                 <div class="row">
                     <div class="col-md-4"><p>Fax Number:</p></div>
                     <div class="col-md-8"><p>@Model.FirstOrDefault().CompanyFax</p></div>
                 </div>
-
+                <!--Company Website Area-->
                 <div class="row">
                     <div class="col-md-4"><p>Website:</p></div>
                     <div class="col-md-8"><p><a href="@Model.FirstOrDefault().CompanyWebsite" target="_blank">@Model.FirstOrDefault().CompanyWebsite</a></p></div>
                 </div>
-
+                <!--Member since for company Area-->
                 <div class="row">
                     <div class="col-md-4"><p>Member Since:</p></div>
                     <div class="col-md-8"><p>@Model.FirstOrDefault().CompanyValidFrom</p></div>
