@@ -60,6 +60,7 @@ namespace BigData.Controllers
                 return RedirectToAction("Search");
             }
             // Get the base details of the listed search of an person in the system
+            // This search here is just looking at the people table in the database where the fullname is equal to the one we were given by the parameter
             List<PersonVM> IndividualDetails = db.People
                                                    .Where(x => x.FullName.Equals(NameEntry))
                                                    .Select(x => new PersonVM
@@ -73,11 +74,13 @@ namespace BigData.Controllers
                                                    }).ToList();
 
             //Customer Company Details
+            //Close to our last search, but we also use .Include to add the PrimaryContactPersonID table
             var CustomerDetails = db.People
                                     .Where(p => p.FullName == NameEntry)
                                     .Include("PrimaryContactPersonID")
                                     .SelectMany(p => p.Customers2).ToList();
 
+            // If the Customer has no additional details via count, we do not show any feature 2 details
             if (CustomerDetails.Count == 0)
             {
                 return View(IndividualDetails);
@@ -85,20 +88,22 @@ namespace BigData.Controllers
             else
             {
 
-                //Items Purchased Details See PersonVM.cs. This query navigates through several tables to get the return the 
-                var ItemDetails = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                //Give the details of items purchased by the customer
+                var ItemDetails = db.People
+                                    .Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
                                     .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
                                     .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
                                     .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10).ToList();
 
                 //A list of salesman for the top 10 items sold to the customer.
-                var SalesMen = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
-                                             .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
-                                             .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
-                                             .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10)
-                                             .Include("InvoiceID").Select(x => x.Invoice).Include("SalespersonID").Select(x => x.Person4)
-                                             .ToList();
-                //Items Purchased Details see PersonVM.cs
+                var SalesMen = db.People
+                                    .Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                    .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
+                                    .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
+                                    .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10)
+                                    .Include("InvoiceID").Select(x => x.Invoice).Include("SalespersonID").Select(x => x.Person4)
+                                    .ToList();
+                //Items Purchased Details
 
                 List<ItemPurchase> Top10Items = new List<ItemPurchase>();
 
@@ -116,19 +121,21 @@ namespace BigData.Controllers
                 List<PersonVM> Customers = new List<PersonVM>
                 {
                     new PersonVM
-                    {//Default Details See PersonVM.cs. Basic details about the person being searched.
+                    {//Default Details Basic details about the person being searched.
                         FullName = IndividualDetails.First().FullName,
                         PreferredName = IndividualDetails.First().PreferredName,
                         PhoneNumber = IndividualDetails.First().PhoneNumber,
                         FaxNumber = IndividualDetails.First().FaxNumber,
                         EmailAddress = IndividualDetails.First().EmailAddress,
                         ValidFrom = IndividualDetails.First().ValidFrom,
+
                         //Customer Company Details; See PersonVM.cs. Details about the customer's company.
                         CompanyName = CustomerDetails.First().CustomerName,
                         CompanyPhone = CustomerDetails.First().PhoneNumber,
                         CompanyFax = CustomerDetails.First().FaxNumber,
                         CompanyWebsite = CustomerDetails.First().WebsiteURL,
                         CompanyValidFrom = CustomerDetails.First().ValidFrom,
+
                         //Purchase History Details; See PersonVM.cs. Total orders, GrossSales and Gross profit for those orders.
                         Orders = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
                                    .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders).Count(),
@@ -143,8 +150,23 @@ namespace BigData.Controllers
                                        .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
                                        .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices)
                                        .Include("InvoiceID").SelectMany(x => x.InvoiceLines).Sum(x => x.LineProfit),
+
+
                         //Items purchased details. A list of details about the top 10 most profitable items sold to the customer
-                        ItemPurchaseSummary = Top10Items
+                        ItemPurchaseSummary = Top10Items,
+
+                        // Gets the Zip of the company 
+                        CompanyZip = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                     .SelectMany(x => x.Customers2).Select(x => x.PostalPostalCode).First(),
+
+                        // Gets the City of the company
+                        CompanyCity = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                     .SelectMany(x => x.Customers2).Select(x => x.PostalAddressLine2).First(),
+                        
+                        // Gets the State of the company
+                        CompanyState = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                     .SelectMany(x => x.Customers2).Include("City").Select(x => x.City).Include("StateProvinceID").Select(x => x.StateProvince)
+                                     .Include("StateProvinceID").Select(x => x.StateProvinceCode).First()
                     }
                 };
 

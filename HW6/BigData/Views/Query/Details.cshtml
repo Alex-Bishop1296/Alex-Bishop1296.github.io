@@ -130,6 +130,15 @@
                 <!--Photo Area-->
                 <img src="https://via.placeholder.com/250x350?text=Photo" />
             </div>
+
+            @if(ViewBag.Result = true){
+                <div>
+                    <p>@Model.FirstOrDefault().CompanyCity</p>
+                    <p>@Model.FirstOrDefault().CompanyState</p>
+                    <p>@Model.FirstOrDefault().CompanyZip</p>
+
+                </div>
+            }
         </div>
     </div>
 </div>

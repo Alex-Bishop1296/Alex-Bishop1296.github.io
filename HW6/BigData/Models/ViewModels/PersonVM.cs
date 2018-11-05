@@ -44,5 +44,10 @@ namespace BigData.Models.ViewModels
 
         //Items Purchased Details
         public List<ItemPurchase> ItemPurchaseSummary { get; set; }
+
+        // Location
+        public string CompanyZip { get; set; }
+        public string CompanyCity { get; set; }
+        public string CompanyState { get; set; }
     }
 }
