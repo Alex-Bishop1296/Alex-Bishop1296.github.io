@@ -27,5 +27,22 @@ namespace BigData.Models.ViewModels
         public DateTime ValidFrom { get; set; }
 
         // We will hard code getting the photo, so we don't here
+
+        // Now we have the additional details for the second feature set
+
+        //Customer Company Details
+        public string CompanyName { get; set; }
+        public string CompanyPhone { get; set; }
+        public string CompanyFax { get; set; }
+        public string CompanyWebsite { get; set; }
+        public DateTime CompanyValidFrom { get; set; }
+
+        //Purchase History Details
+        public double Orders { get; set; }
+        public decimal GrossSales { get; set; }
+        public decimal GrossProfit { get; set; }
+
+        //Items Purchased Details. See ItemPurchased.cs
+        public List<ItemPurchase> ItemPurchaseSummary { get; set; }
     }
 }

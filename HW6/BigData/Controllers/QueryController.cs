@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using BigData.Models;
 using BigData.Models.ViewModels;
+using System.Diagnostics;
 
 namespace BigData.Controllers
 {
@@ -38,9 +40,10 @@ namespace BigData.Controllers
             }
         }
 
-        public ActionResult Details(string Name)
+        [HttpGet]
+        public ActionResult Details(string NameEntry)
         {
-            if (Name == null || Name == "")
+            if (NameEntry == null || NameEntry == "")
             {
                 // Redirect to search page if URL is edited
                 return RedirectToAction("Search");
@@ -50,7 +53,7 @@ namespace BigData.Controllers
             else
             {
                 List<PersonVM> IndividualDetails = db.People
-                                                   .Where(x => x.FullName.Equals(Name))
+                                                   .Where(x => x.FullName.Equals(NameEntry))
                                                    .Select(x => new PersonVM
                                                    {
                                                        FullName = x.FullName,
@@ -60,7 +63,105 @@ namespace BigData.Controllers
                                                        EmailAddress = x.EmailAddress,
                                                        ValidFrom = x.ValidFrom,
                                                    }).ToList();
-                return View(IndividualDetails);
+
+              
+                //Customer Company Details
+                var CustomerDetails = db.People
+                                        .Where(p => p.FullName == NameEntry)
+                                        .Include("PrimaryContactPersonID")
+                                        .SelectMany(p => p.Customers2).ToList();
+                //Queries through System.Data.Entity.Core.EntityCommandExecutionException 
+                try
+                {
+                    //Items Purchased Details See PersonVM.cs. This query navigates through several tables to get the return the 
+                    var ItemDetails = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                        .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
+                                        .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
+                                        .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10).ToList();
+
+                    //A list of salesman for the top 10 items sold to the customer.
+                    var SalesMen = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                                 .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
+                                                 .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices).Include("InvoiceID")
+                                                 .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10)
+                                                 .Include("InvoiceID").Select(x => x.Invoice).Include("SalespersonID").Select(x => x.Person4)
+                                                 .ToList();
+                    //Items Purchased Details see PersonVM.cs
+
+                    List<ItemPurchase> Top10Items = new List<ItemPurchase>();
+
+                    //Intializes a list of ItemPurchased classes that contains the details for the top 10 items sold to the customer.
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Top10Items.Add(new ItemPurchase
+                        {
+                            StockItemID = ItemDetails.ElementAt(i).StockItemID,
+                            ItemDescription = ItemDetails.ElementAt(i).Description,
+                            LineProfit = ItemDetails.ElementAt(i).LineProfit,
+                            SalesPerson = SalesMen.ElementAt(i).FullName
+                        });
+                    }
+                    PersonVM Customer = new PersonVM
+                    {//Default Details See PersonVM.cs. Basic details about the person being searched.
+                        FullName = IndividualDetails.First().FullName,
+                        PreferredName = IndividualDetails.First().PreferredName,
+                        PhoneNumber = IndividualDetails.First().PhoneNumber,
+                        FaxNumber = IndividualDetails.First().FaxNumber,
+                        EmailAddress = IndividualDetails.First().EmailAddress,
+                        ValidFrom = IndividualDetails.First().ValidFrom,
+                        //Customer Company Details; See PersonVM.cs. Details about the customer's company.
+                        CompanyName = CustomerDetails.First().CustomerName,
+                        CompanyPhone = CustomerDetails.First().PhoneNumber,
+                        CompanyFax = CustomerDetails.First().FaxNumber,
+                        CompanyWebsite = CustomerDetails.First().WebsiteURL,
+                        CompanyValidFrom = CustomerDetails.First().ValidFrom,
+                        //Purchase History Details; See PersonVM.cs. Total orders, GrossSales and Gross profit for those orders.
+                        Orders = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                   .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders).Count(),
+
+                        GrossSales = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                       .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
+                                       //by using include we can merge in the OrderID teble
+                                       .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices)
+                                       .Include("InvoiceID").SelectMany(x => x.InvoiceLines).Sum(x => x.ExtendedPrice),
+
+                        GrossProfit = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                       .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
+                                       .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices)
+                                       .Include("InvoiceID").SelectMany(x => x.InvoiceLines).Sum(x => x.LineProfit),
+                        //Items purchased details. A list of details about the top 10 most profitable items sold to the customer. See ItemPurchased.cs
+                        ItemPurchaseSummary = Top10Items
+                    };
+
+
+                    //Majority of the debug block
+                    Debug.WriteLine(Customer.FullName);
+                    Debug.WriteLine(Customer.PreferredName);
+                    Debug.WriteLine(Customer.PhoneNumber);
+                    Debug.WriteLine(Customer.FaxNumber);
+                    Debug.WriteLine(Customer.EmailAddress);
+                    Debug.WriteLine(Customer.ValidFrom);
+                    Debug.WriteLine(Customer.CompanyName);
+                    Debug.WriteLine(Customer.CompanyPhone);
+                    Debug.WriteLine(Customer.CompanyFax);
+                    Debug.WriteLine(Customer.CompanyWebsite);
+                    Debug.WriteLine(Customer.CompanyValidFrom);
+                    Debug.WriteLine(Customer.Orders);
+                    Debug.WriteLine(Customer.GrossSales);
+                    Debug.WriteLine(Customer.GrossProfit);
+                    for (int x = 0; x < 10; x++)
+                    {
+                        Debug.WriteLine(Customer.ItemPurchaseSummary.ElementAt(x).StockItemID);
+                        Debug.WriteLine(Customer.ItemPurchaseSummary.ElementAt(x).ItemDescription);
+                        Debug.WriteLine(Customer.ItemPurchaseSummary.ElementAt(x).LineProfit);
+                        Debug.WriteLine(Customer.ItemPurchaseSummary.ElementAt(x).SalesPerson);
+
+                    }
+                    return View(IndividualDetails);
+                }
+                catch (System.Data.Entity.Core.EntityCommandExecutionException) { }
+
+                return View();
 
             }
         }

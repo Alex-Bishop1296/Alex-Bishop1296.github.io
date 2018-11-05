@@ -4,33 +4,33 @@
     ViewBag.Title = "Search";
 }
 <div class="content">
-    <div class="row">
-        <!-- Search Bar-->
-        <div class="col-md-12">
-            <h1 class="text-center">Search</h1>
-            <!-- Search form -->
-            @using (Html.BeginForm("Search", "Query", FormMethod.Get))
-            {
-                <div class="containerClass">
-                    <input class="form-control" type="text" name="input" placeholder="Search by client name" />
-                    <button type="submit" class="btn btn-primary searchIcon sumbitClass">Search</button>
-                </div>
-            }
+<div class="row">
+    <!-- Search Bar-->
+    <div class="col-md-12">
+        <h1 class="text-center">Search</h1>
+        <!-- Search form -->
+        @using (Html.BeginForm("Search", "Query", FormMethod.Get))
+        {
+        <div class="containerClass">
+            <input class="form-control" type="text" name="input" placeholder="Search by client name" />
+            <button type="submit" class="btn btn-primary searchIcon sumbitClass">Search</button>
         </div>
+        }
     </div>
+</div>
 
-    <!--Results Form-->
-    @if (ViewBag.Result == true)
-    {
-        <table>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <h4>@Html.ActionLink(item.FullName, "Details", "Query", new { Name = item.FullName }, null)</h4>
-                    </td>
-                </tr>
-            }
-        </table>
-    }
+<!--Results Form-->
+@if (ViewBag.Result == true)
+{
+    <table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <h4>@Html.ActionLink(item.FullName, "Details", "Query", new { Name = item.FullName }, null)</h4>
+                </td>
+            </tr>
+        }
+    </table>
+}
 </div>
