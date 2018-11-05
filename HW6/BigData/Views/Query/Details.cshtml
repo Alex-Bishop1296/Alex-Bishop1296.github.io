@@ -41,6 +41,87 @@
                 <div class="col-md-8"><p>@Model.FirstOrDefault().ValidFrom</p></div>
             </div>
 
+            @if (Model.FirstOrDefault().CompanyName != null)
+            {
+                <h3>Company Details</h3>
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-4"><p>Company Name:</p></div>
+                    <div class="col-md-8"><p>@Model.FirstOrDefault().CompanyName</p></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"><p>Phone Number:</p></div>
+                    <div class="col-md-8"><p>@Model.FirstOrDefault().CompanyPhone</p></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"><p>Fax Number:</p></div>
+                    <div class="col-md-8"><p>@Model.FirstOrDefault().CompanyFax</p></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"><p>Website:</p></div>
+                    <div class="col-md-8"><p><a href="@Model.FirstOrDefault().CompanyWebsite" target="_blank">@Model.FirstOrDefault().CompanyWebsite</a></p></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"><p>Member Since:</p></div>
+                    <div class="col-md-8"><p>@Model.FirstOrDefault().CompanyValidFrom</p></div>
+                </div>
+
+                <h3>Purchases</h3>
+                <hr />
+                <div class="row">
+                    <div class="col-md-4"><p>Total Orders:</p></div>
+                    <div class="col-md-8"><p>@Model.FirstOrDefault().Orders</p></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"><p>Gross Sales:</p></div>
+                    <div class="col-md-8"><p>$@Model.FirstOrDefault().GrossSales</p></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"><p>Total Profit:</p></div>
+                    <div class="col-md-8"><p>$@Model.FirstOrDefault().GrossProfit</p></div>
+                </div>
+
+                <h3>Most Profitable Items</h3>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ItemPurchaseSummary.FirstOrDefault().StockItemID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ItemPurchaseSummary.FirstOrDefault().ItemDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ItemPurchaseSummary.FirstOrDefault().LineProfit)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ItemPurchaseSummary.FirstOrDefault().SalesPerson)
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.FirstOrDefault().ItemPurchaseSummary)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StockItemID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ItemDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LineProfit)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SalesPerson)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+
         </div>
 
         <!-- Large Column Right -->

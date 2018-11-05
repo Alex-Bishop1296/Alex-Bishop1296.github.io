@@ -42,7 +42,7 @@ namespace BigData.Models.ViewModels
         public decimal GrossSales { get; set; }
         public decimal GrossProfit { get; set; }
 
-        //Items Purchased Details. See ItemPurchased.cs
+        //Items Purchased Details
         public List<ItemPurchase> ItemPurchaseSummary { get; set; }
     }
 }

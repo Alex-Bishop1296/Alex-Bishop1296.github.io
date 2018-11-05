@@ -16,6 +16,11 @@ namespace BigData.Controllers
 
         private UserContext db = new UserContext();
 
+        /// <summary>
+        /// Return the view of the search with results
+        /// </summary>
+        /// <param name="input">name searched to get results</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Search(string input)
         {
@@ -40,18 +45,24 @@ namespace BigData.Controllers
             }
         }
 
-        [HttpGet]
+        /// <summary>
+        /// Return the results a search in detail based on given name
+        /// </summary>
+        /// <param name="NameEntry">Exact name of the person that was searched for</param>
+        /// <returns></returns>
+
         public ActionResult Details(string NameEntry)
         {
+            // Check if the input is valid
             if (NameEntry == null || NameEntry == "")
             {
                 // Redirect to search page if URL is edited
                 return RedirectToAction("Search");
             }
-
             // Otherwise run the search
             else
             {
+                // Get the base details of the listed search of an person in the system
                 List<PersonVM> IndividualDetails = db.People
                                                    .Where(x => x.FullName.Equals(NameEntry))
                                                    .Select(x => new PersonVM
