@@ -49,5 +49,7 @@ namespace BigData.Models.ViewModels
         public string CompanyZip { get; set; }
         public string CompanyCity { get; set; }
         public string CompanyState { get; set; }
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
     }
 }

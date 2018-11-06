@@ -121,7 +121,8 @@ namespace BigData.Controllers
                 List<PersonVM> Customers = new List<PersonVM>
                 {
                     new PersonVM
-                    {//Default Details Basic details about the person being searched.
+                    {   
+                        //Default Details .
                         FullName = IndividualDetails.First().FullName,
                         PreferredName = IndividualDetails.First().PreferredName,
                         PhoneNumber = IndividualDetails.First().PhoneNumber,
@@ -129,23 +130,24 @@ namespace BigData.Controllers
                         EmailAddress = IndividualDetails.First().EmailAddress,
                         ValidFrom = IndividualDetails.First().ValidFrom,
 
-                        //Customer Company Details; See PersonVM.cs. Details about the customer's company.
+                        //Customer Company Details
                         CompanyName = CustomerDetails.First().CustomerName,
                         CompanyPhone = CustomerDetails.First().PhoneNumber,
                         CompanyFax = CustomerDetails.First().FaxNumber,
                         CompanyWebsite = CustomerDetails.First().WebsiteURL,
                         CompanyValidFrom = CustomerDetails.First().ValidFrom,
 
-                        //Purchase History Details; See PersonVM.cs. Total orders, GrossSales and Gross profit for those orders.
+                        //Get the total number of orders by this company
                         Orders = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
                                    .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders).Count(),
 
+                        // Calculate and Store the Gross Sales for this company
                         GrossSales = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
                                        .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
-                                       //by using include we can merge in the OrderID teble
                                        .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices)
                                        .Include("InvoiceID").SelectMany(x => x.InvoiceLines).Sum(x => x.ExtendedPrice),
 
+                        // Calculate and Store the Gross Profit for this company
                         GrossProfit = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
                                        .SelectMany(x => x.Customers2).Include("CustomerID").SelectMany(x => x.Orders)
                                        .Include("OrderID").Include("CustomerID").SelectMany(x => x.Invoices)
@@ -161,12 +163,25 @@ namespace BigData.Controllers
 
                         // Gets the City of the company
                         CompanyCity = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
-                                     .SelectMany(x => x.Customers2).Select(x => x.PostalAddressLine2).First(),
+                                     .SelectMany(x => x.Customers2).Include("City").Select(x => x.City.CityName).First(),
                         
                         // Gets the State of the company
                         CompanyState = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
                                      .SelectMany(x => x.Customers2).Include("City").Select(x => x.City).Include("StateProvinceID").Select(x => x.StateProvince)
-                                     .Include("StateProvinceID").Select(x => x.StateProvinceCode).First()
+                                     .Include("StateProvinceID").Select(x => x.StateProvinceCode).First(),
+
+
+                        Latitude = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                     .SelectMany(x => x.Customers2)
+                                     .Select(x => x.City)
+                                     .Include("City")
+                                     .Select(x => x.Location.Latitude).First(),
+
+                        Longitude = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                     .SelectMany(x => x.Customers2)
+                                     .Select(x => x.City)
+                                     .Include("City")
+                                     .Select(x => x.Location.Longitude).First()
                     }
                 };
 

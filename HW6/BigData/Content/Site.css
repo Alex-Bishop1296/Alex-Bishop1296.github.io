@@ -47,3 +47,10 @@
     top: 0;
     right: 0;
 }
+
+
+/*For use of map in details*/
+#mapid {
+    height: 500px;
+    width: 500px;
+}
