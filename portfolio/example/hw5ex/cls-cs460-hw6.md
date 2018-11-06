@@ -6,3 +6,5 @@
 ### [CS460 Assignments](cls-cs460.md) 
 
 # Notes
+
+Part 1
