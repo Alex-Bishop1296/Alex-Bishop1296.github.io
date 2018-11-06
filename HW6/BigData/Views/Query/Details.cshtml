@@ -148,9 +148,9 @@
             @if (ViewBag.Result = true)
             {
             <div>
-                <p>@Model.FirstOrDefault().CompanyCity
-                @Model.FirstOrDefault().CompanyState
-                @Model.FirstOrDefault().CompanyZip</p>
+                <h3>Company Location:</h3>
+                <!--Area-->
+                <p>@Model.FirstOrDefault().CompanyCity, @Model.FirstOrDefault().CompanyState, @Model.FirstOrDefault().CompanyZip</p>
 
                 <div id="mapid"></div>
                 <!-- Script here actual intializes the longitude and latitude-->

@@ -40,6 +40,7 @@ namespace BigData.Controllers
                                         {
                                             FullName = n.FullName
                                         }).ToList();
+                // Allow the new customer list to be viewed via if in html
                 ViewBag.Result = true;
                 return View(Person);
             }
@@ -49,7 +50,7 @@ namespace BigData.Controllers
         /// Return the results a search in detail based on given name
         /// </summary>
         /// <param name="NameEntry">Exact name of the person that was searched for</param>
-        /// <returns>view with details of name given</returns>
+        /// <returns>view with details of name given, more or less depending if the customer is with a company</returns>
         [HttpGet]
         public ActionResult Details(string NameEntry)
         {
@@ -103,11 +104,10 @@ namespace BigData.Controllers
                                     .SelectMany(x => x.InvoiceLines).OrderByDescending(x => x.LineProfit).Take(10)
                                     .Include("InvoiceID").Select(x => x.Invoice).Include("SalespersonID").Select(x => x.Person4)
                                     .ToList();
-                //Items Purchased Details
 
+                //List object to store the top 10 items sold to the customer
                 List<ItemPurchase> Top10Items = new List<ItemPurchase>();
-
-                //Intializes a list of ItemPurchased classes that contains the details for the top 10 items sold to the customer.
+                //Intializes a list of Item Purchase class that contains the details for the top 10 items sold to the customer.
                 for (int i = 0; i < 10; i++)
                 {
                     Top10Items.Add(new ItemPurchase
@@ -170,13 +170,14 @@ namespace BigData.Controllers
                                      .SelectMany(x => x.Customers2).Include("City").Select(x => x.City).Include("StateProvinceID").Select(x => x.StateProvince)
                                      .Include("StateProvinceID").Select(x => x.StateProvinceCode).First(),
 
-
+                        // Gets the latitude of the company
                         Latitude = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
                                      .SelectMany(x => x.Customers2)
                                      .Select(x => x.City)
                                      .Include("City")
                                      .Select(x => x.Location.Latitude).First(),
 
+                        // Gets the longitude of the company
                         Longitude = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
                                      .SelectMany(x => x.Customers2)
                                      .Select(x => x.City)
@@ -184,8 +185,9 @@ namespace BigData.Controllers
                                      .Select(x => x.Location.Longitude).First()
                     }
                 };
-
+                // Allow the display of the additional details
                 ViewBag.Result = true;
+                // Return the view with the addtional details
                 return View(Customers);
             }
         }

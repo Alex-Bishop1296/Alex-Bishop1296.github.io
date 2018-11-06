@@ -49,6 +49,7 @@ namespace BigData.Models.ViewModels
         public string CompanyZip { get; set; }
         public string CompanyCity { get; set; }
         public string CompanyState { get; set; }
+        // Nullable is used as required from the database
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
     }
