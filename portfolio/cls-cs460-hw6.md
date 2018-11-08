@@ -285,4 +285,4 @@ Here we load in the data model, then we generate the map js and css from the API
 
 We display the location of the company via text fields like earlier, then we place a mapid div. This is actually where our map is going to be displayed. Next, we start a script for placing the map via JS. We make a centerpoint based on our Lat and Longit, we set the veiw of the map view var map, then finally we loading in the openstreetmap tilelayer or actual map imaging. Then we add our marker to the map and end the script. With this we can actually display all of the named customer's results. I will demo these features all in the video below:
 
-![Demo Video Link](https://youtu.be/-aYcqpl98Pk)
+[Demo Video Link](https://youtu.be/-aYcqpl98Pk)
