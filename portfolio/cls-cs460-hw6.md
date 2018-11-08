@@ -186,4 +186,101 @@ Here I am going to break down the code for the details view controller. Since we
                                                    }).ToList();
 ```
 
-Here we have the details for feature 1.
+Here we have the details for feature 1. We take in a string just like our search, and do the same check for valid entry, if the validity check fails, we redirect the user back to the homepage, helping us deal with direct intput into the url. If we have valid input, we do that same query from our basic search, however, we make sure the name is exactly the one given (as that is what we pass to this view) and we get multiple elements assigned to the modeled object for PersonVM. After this, I do another search for the feature 2, or customer details, if we don't find those details, in an if else, we exit with the feature one details, ie the searched person is not a customer. If we do find those details, we start assigning more fields to the model. One of the notable assignments is as follows:
+
+```csharp
+                //List object to store the top 10 items sold to the customer
+                List<ItemPurchase> Top10Items = new List<ItemPurchase>();
+                //Intializes a list of Item Purchase class that contains the details for the top 10 items sold to the customer.
+                for (int i = 0; i < 10; i++)
+                {
+                    Top10Items.Add(new ItemPurchase
+                    {
+                        StockItemID = ItemDetails.ElementAt(i).StockItemID,
+                        ItemDescription = ItemDetails.ElementAt(i).Description,
+                        LineProfit = ItemDetails.ElementAt(i).LineProfit,
+                        SalesPerson = SalesMen.ElementAt(i).FullName
+                    });
+                }
+```
+
+This Top10Items list is used directly by the model for displaying the top 10 items sold to the customer. We make a list of our itempurchase objects which we later assign the details for each object in the database info. The majority of the rest of this code in our controller method is just assigning fields from the model with a query that starts at the customer's name and goes deeper into the database until we get the data we need. One thing to note is that we grab the latitude and longitude for use in displaying the company location on a map using OpenStreetMap and Leaflet. Here is what grabbing those looks like:
+
+```csharp
+                        // Gets the latitude of the company
+                        Latitude = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                     .SelectMany(x => x.Customers2)
+                                     .Select(x => x.City)
+                                     .Include("City")
+                                     .Select(x => x.Location.Latitude).First(),
+
+                        // Gets the longitude of the company
+                        Longitude = db.People.Where(person => person.FullName.Contains(NameEntry)).Include("PrimaryContactPersonID")
+                                     .SelectMany(x => x.Customers2)
+                                     .Select(x => x.City)
+                                     .Include("City")
+                                     .Select(x => x.Location.Longitude).First()
+```
+
+Notice that we going into the "PrimaryContactPersonID" table via person.FullName with People's foreign key. Then we get another include in the City table to final grab what we need. With all of our data extracted we can look at the cshtml for some of our display:
+
+```html
+<!-- Calling the database model to allow the rendering of information-->
+@model IEnumerable<BigData.Models.ViewModels.PersonVM>
+@{
+    ViewBag.Title = "Details";
+}
+
+<!--Used to generate map with API-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+        integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+        crossorigin=""></script>
+
+
+<div class="content">
+    <div class="row">
+        <!-- Large Column Left-->
+        <div class="col-md-6">
+            <!--First Name Area-->
+            <div class="row">
+                <div class="col-md-8">
+                    <h2><b>@Model.FirstOrDefault().FullName</b></h2>
+                    <hr />
+                </div>
+            </div>
+```
+
+Here we load in the data model, then we generate the map js and css from the API (more on that in a bit). Finally we start our left col-md-6 (the left half of the page). Here we grab the FullName from the model. This step repeats for each and every item in the model, doing a foreach for the purchases as well like we did in the search results. We only display the feature 2 results if we pass the results = true like on our search too. Our map code looks like this:
+
+```html
+            <div>
+                <h3>Company Location:</h3>
+                <!--Area-->
+                <p>@Model.FirstOrDefault().CompanyCity, @Model.FirstOrDefault().CompanyState, @Model.FirstOrDefault().CompanyZip</p>
+
+                <div id="mapid"></div>
+                <!-- Script here actual intializes the longitude and latitude-->
+                <script>
+                    // center of the map
+                    var center = [@Model.FirstOrDefault().Latitude,@Model.FirstOrDefault().Longitude];
+
+                    // Create the map
+                    var map = L.map('mapid').setView(center, 13);
+
+                    // Set up the OSM layer
+                    L.tileLayer(
+                        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 18
+                        }).addTo(map);
+
+                    // add a marker in the given location
+                    L.marker(center).addTo(map);
+                </script>
+
+            </div>
+```
+
+We display the location of the company via text fields like earlier, then we place a mapid div. This is actually where our map is going to be displayed. Next, we start a script for placing the map via JS. We make a centerpoint based on our Lat and Longit, we set the veiw of the map view var map, then finally we loading in the openstreetmap tilelayer or actual map imaging. Then we add our marker to the map and end the script. With this we can actually display all of the named customer's results. I will demo these features all in the video below
