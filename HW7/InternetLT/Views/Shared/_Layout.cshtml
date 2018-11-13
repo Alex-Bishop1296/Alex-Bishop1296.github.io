@@ -12,6 +12,7 @@
 
     <div class="container body-content">
         @RenderBody()
+        @RenderSection("scriptSection", required: false)
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>

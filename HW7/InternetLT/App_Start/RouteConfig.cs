@@ -14,6 +14,14 @@ namespace InternetLT
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "RetrieveGiphy",
+               // url is name of controller, method used, and then name of string taken in
+               url: "{controller}/{action}/{word}",
+               defaults: new { controller = "Word", action = "RetrieveGiphy" }
+            );
+
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
