@@ -8,11 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 // For parsing the Json response from Giphy
 using Newtonsoft.Json.Linq;
+using InternetLT.DAL;
+using InternetLT.Models;
 
 namespace InternetLT.Controllers
 {
     public class WordController : Controller
     {
+        private LoggerContext db = new LoggerContext();
 
         public JsonResult RetrieveGiphy(string word)
         {
@@ -62,6 +65,19 @@ namespace InternetLT.Controllers
             };
 
             //Database extra stuff goes here
+            var ip = Request.UserHostAddress;
+            var agent = Request.Browser.Type;
+            var newLog = new Log
+            {
+                Date = DateTime.Now,
+                Word = word,
+                GiphyURL = gifUrl.embed_url,
+                IP = ip,
+                Browser_Agent = agent
+            };
+            db.Log.Add(newLog);
+            db.SaveChanges();
+
 
             return Json(gifUrl, JsonRequestBehavior.AllowGet);
         }
