@@ -222,3 +222,6 @@ Now, back on the topic of the controller, the logic looks as follows:
 ```
 
 What is going on here is quite a few things. We get the API key from outside the project and attach it to a string to create a proper URL. Next we create a web request with that url and get a response as a json object. With this object, we extract the URL from the datafield (has the actual path to the gif we can use) and place it in a string. We then use that string for a new json object and give it the url. Then we log all of our current information into our database, save the changes, and pass our json object back to the script. From our script we display the gif on our page.
+
+Here is a link to the demo of my project:
+[Demo Video Link](https://youtu.be/USuxCyvT-t0)
