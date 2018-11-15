@@ -1,5 +1,6 @@
 ﻿//This script will be used to control the translator so it can make live gif loads on the fly
 
+// Debug Script
 console.log("Debug messages from ControlScript.js");
 
 $('#ToTranslate').keypress(function (e) {
@@ -19,10 +20,12 @@ $('#ToTranslate').keypress(function (e) {
         var recWord = prevWord[prevWord.length - 1];
         console.log("Word coming in is  " + recWord); // If the most recent word is a noun or verb
 
-        // If most recent word is a noun or verb
+        // If most recent word is a noun or verb (interesting word)
         if (nouns.includes(recWord.toLowerCase()) || verbs.includes(recWord.toLowerCase())) {
+            //Create the source path url
             var source = "/Word/RetrieveGiphy/" + recWord
 
+            //Debug
             console.log("source");
 
             // Sending the recWrod to the controller via the source URL, executing a method based on success or failure
@@ -34,18 +37,21 @@ $('#ToTranslate').keypress(function (e) {
                 error: errorAjax
             })
         }
+        //Append non-interesting words to the translator
         else {
             $(".translation").append(recWord + " ");
         }
     }
 });
 
+//If we succesfully get the gifurl, place it the translator as an iframe
 function successGif(gifUrl) {
     console.log("Placing the Gif in the Webpage");
     console.log(gifUrl);
     $(".translation").append("<iframe src='" + gifUrl.embed_url + "' height='200' width='300'></iframe>");
 }
 
+//If we fail to get the gifurl
 function errorAjax() {
     console.log("Hit error check when inserting gif into webpage");
 }

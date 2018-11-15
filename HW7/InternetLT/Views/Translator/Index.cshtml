@@ -6,13 +6,14 @@
     <h2>Internet Language Translator</h2>
 </div>
 <br />
-
+<!--Search bar that sends words to our JS and controller-->
 @Html.TextBox("ToTranslate", null , new { @class = "form-control", placeholder = "Start your message here..." })  
 
+<!--Here we hold all translated information-->
 <div class="translation">
 
 </div>
-
+<!--Here we have the section to actually generate the scripts code four our translation box-->
 @section scriptSection{
      <script src="~/Scripts/jquery-3.3.1.min.js"></script>   
      <script src="~/Scripts/ControlScript.js"></script>

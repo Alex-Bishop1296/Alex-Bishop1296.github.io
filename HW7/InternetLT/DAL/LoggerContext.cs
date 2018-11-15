@@ -7,6 +7,9 @@ using InternetLT.Models;
 
 namespace InternetLT.DAL
 {
+    /// <summary>
+    /// Basic class to contain the context of the logger
+    /// </summary>
     public class LoggerContext : DbContext
     {
         public LoggerContext() : base("name=Logger")

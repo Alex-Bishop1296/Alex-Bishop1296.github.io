@@ -9,10 +9,12 @@ namespace InternetLT
 {
     public class RouteConfig
     {
+
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //As per the requirements for this assignment we made a new route in route config
             routes.MapRoute(
                name: "RetrieveGiphy",
                // url is name of controller, method used, and then name of string taken in

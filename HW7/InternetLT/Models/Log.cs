@@ -6,6 +6,9 @@ namespace InternetLT.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    /// <summary>
+    /// Auto-Generated Class to contain the information for entries in the Logger DB and subsequenctily the log table
+    /// </summary>
     public partial class Log
     {
         public int ID { get; set; }

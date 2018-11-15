@@ -17,6 +17,11 @@ namespace InternetLT.Controllers
     {
         private LoggerContext db = new LoggerContext();
 
+        /// <summary>
+        /// Controller for placing images in the tranlation divider after the ControlScript.js sends them
+        /// </summary>
+        /// <param name="word">word that is being translated with the giphy API</param>
+        /// <returns>The JSON of the gif url for the ControlScript.js to use</returns>
         public JsonResult RetrieveGiphy(string word)
         {
             // Start by getting Giphy API
