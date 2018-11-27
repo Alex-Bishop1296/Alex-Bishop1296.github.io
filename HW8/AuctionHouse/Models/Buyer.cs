@@ -14,8 +14,10 @@ namespace AuctionHouse.Models
             Bids = new HashSet<Bid>();
         }
 
+        [Display(Name ="Buyer ID")]
         public int BuyerID { get; set; }
 
+        [Display(Name = "Buyer Name")]
         [Required]
         [StringLength(128)]
         public string BuyerName { get; set; }

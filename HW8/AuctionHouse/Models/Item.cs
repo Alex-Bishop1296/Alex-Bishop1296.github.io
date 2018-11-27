@@ -14,12 +14,15 @@ namespace AuctionHouse.Models
             Bids = new HashSet<Bid>();
         }
 
+        [Display(Name ="Item ID")]
         public int ItemID { get; set; }
 
+        [Display(Name = "Item Name")]
         [Required]
         [StringLength(128)]
         public string ItemName { get; set; }
 
+        [Display(Name = "Item Description")]
         [Required]
         [StringLength(256)]
         public string ItemDescription { get; set; }
@@ -29,6 +32,7 @@ namespace AuctionHouse.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bid> Bids { get; set; }
 
+        [Display(Name = "Seller")]
         public virtual Seller Seller { get; set; }
     }
 }

@@ -8,10 +8,13 @@ namespace AuctionHouse.Models
 
     public partial class Bid
     {
+        [Display(Name ="Bid ID")]
         public int BidID { get; set; }
 
+        [Display(Name = "Item ID")]
         public int ItemID { get; set; }
 
+        [Display(Name = "Buyer ID")]
         public int BuyerID { get; set; }
 
         public decimal Price { get; set; }
