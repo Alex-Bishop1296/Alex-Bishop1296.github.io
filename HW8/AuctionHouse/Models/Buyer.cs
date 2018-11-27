@@ -16,10 +16,9 @@ namespace AuctionHouse.Models
 
         public int BuyerID { get; set; }
 
-        [Column("Buyer")]
         [Required]
         [StringLength(128)]
-        public string Buyer1 { get; set; }
+        public string BuyerName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bid> Bids { get; set; }

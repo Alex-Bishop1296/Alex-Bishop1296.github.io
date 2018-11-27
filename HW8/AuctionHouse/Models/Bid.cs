@@ -12,13 +12,13 @@ namespace AuctionHouse.Models
 
         public int ItemID { get; set; }
 
-        public int Buyer { get; set; }
+        public int BuyerID { get; set; }
 
         public decimal Price { get; set; }
 
         public DateTime Timestamp { get; set; }
 
-        public virtual Buyer Buyer1 { get; set; }
+        public virtual Buyer Buyer { get; set; }
 
         public virtual Item Item { get; set; }
     }

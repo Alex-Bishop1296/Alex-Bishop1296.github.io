@@ -1,5 +1,6 @@
-namespace AuctionHouse.Models
+namespace AuctionHouse.DAL
 {
+    using AuctionHouse.Models;
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -25,8 +26,7 @@ namespace AuctionHouse.Models
 
             modelBuilder.Entity<Buyer>()
                 .HasMany(e => e.Bids)
-                .WithRequired(e => e.Buyer1)
-                .HasForeignKey(e => e.Buyer)
+                .WithRequired(e => e.Buyer)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Item>()
@@ -36,8 +36,7 @@ namespace AuctionHouse.Models
 
             modelBuilder.Entity<Seller>()
                 .HasMany(e => e.Items)
-                .WithRequired(e => e.Seller1)
-                .HasForeignKey(e => e.Seller)
+                .WithRequired(e => e.Seller)
                 .WillCascadeOnDelete(false);
         }
     }
