@@ -7,5 +7,5 @@
 
 ERD Diagram
 
-![ERD Diagram](hw8ex/ERD.PNG)
+![ERD Diagram](example/hw8ex/ERD.PNG)
 
