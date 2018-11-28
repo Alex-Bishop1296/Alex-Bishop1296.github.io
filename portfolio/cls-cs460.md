@@ -8,6 +8,8 @@ Here is a list of links for the assignments I have done in CS460. Each one of th
 ### [Homework 5](cls-cs460-hw5.md)
 ### [Homework 6](cls-cs460-hw6.md)
 ### [Homework 7](cls-cs460-hw7.md)
+### [Homework 8](cls-cs460-hw8.md)
+### [Homework 9](cls-cs460-hw9.md)
 
 # Return to?
 ### [Code Repo](https://github.com/Alex-Bishop1296/Alex-Bishop1296.github.io) 
