@@ -42,13 +42,13 @@ namespace AuctionHouse.Controllers
         [HttpGet]
         public JsonResult Update(int id)
         {
-            Debug.WriteLine("Inside Update in Item's Controller, id is: " + id);
+            //Debug.WriteLine("Inside Update in Item's Controller, id is: " + id);
             var item = db.Items.Where(i => i.ItemID.Equals(id)).FirstOrDefault();
             var bid = item.Bids.LastOrDefault();
 
             //Debug messages 
-            Debug.WriteLine("item =" + item);
-            Debug.WriteLine("bid =" + bid);
+            // Debug.WriteLine("item =" + item);
+            // Debug.WriteLine("bid =" + bid);
 
             var recent = new
             {
