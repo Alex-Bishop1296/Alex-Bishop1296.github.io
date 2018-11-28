@@ -19,7 +19,13 @@ namespace AuctionHouse.Models
 
         public decimal Price { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        private DateTime date = DateTime.Now;
+        [Display(Name = "Submission Time")]
+        public DateTime Timestamp
+        {
+            get { return date; }
+            set { date = value; }
+        }
 
         public virtual Buyer Buyer { get; set; }
 
