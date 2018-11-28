@@ -29,12 +29,14 @@
     </div>
 
     <div class="container body-content">
+        <!--Added this renderbody for getting the javascript to work-->
         @RenderBody()
         <hr />
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- Added this renderbody for getting the javascript to work that controls bid refresher-->
     @RenderSection("scripts", required: false)
 </body>
 </html>

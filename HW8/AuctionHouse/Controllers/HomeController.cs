@@ -15,6 +15,10 @@ namespace AuctionHouse.Controllers
 
 
         // GET: Home
+        /// <summary>
+        /// Display the view with and pass the ordered list of bids to it
+        /// </summary>
+        /// <returns>view with ordered top 10 list of bids</returns>
         public ActionResult Index()
         {
             var list = db.Bids.ToList();
