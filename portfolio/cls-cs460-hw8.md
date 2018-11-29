@@ -7,3 +7,6 @@
 
 ### E-R Diagram
 ![E-R Diagram](example/hw8ex/ERD.PNG)
+
+### Demo Video
+[Demo Video Link](https://youtu.be/mjj_JnurahI)
