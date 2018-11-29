@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AuctionHouse.Models.Bid>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Reginald's Ancient Antiquities Auction House</h2>
+
+<br />
+
+
+<!-- For each bid you should show the:
+     Item ID, 
+     Item Name (which should be a link to the item details page),
+     Buyer's Name,
+     Bid Amount 
+     and the Bid timestamp.
+-->
+<!--Table Headers-->
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buyer.BuyerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Timestamp)
+        </th>
+        <th></th>
+    </tr>
+
+    <!--Table entries-->
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemID)
+            </td>
+            <td>
+                <!-- Display the item name as a link to the bids page-->
+                @Html.ActionLink(item.Item.ItemName, "Details", "Items", new { id=item.Item.ItemID }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Buyer.BuyerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <!--Display the date but omit the day stamp if it is today's date-->
+                @if (item.Timestamp.Date == DateTime.Today)
+                {
+                    DateTime today = item.Timestamp;
+                    @today.ToString("h:mm:ss tt")
+                }
+                else
+                {
+                @Html.DisplayFor(modelItem => item.Timestamp)
+                }
+            </td>
+        </tr>
+    }
+</table>

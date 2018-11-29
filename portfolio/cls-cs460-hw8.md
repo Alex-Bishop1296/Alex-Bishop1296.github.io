@@ -5,8 +5,5 @@
 ### [Home](../index.md) 
 ### [CS460 Assignments](cls-cs460.md) 
 
-
-
-####E-R Diagram
+### E-R Diagram
 ![E-R Diagram](example/hw8ex/ERD.PNG)
-

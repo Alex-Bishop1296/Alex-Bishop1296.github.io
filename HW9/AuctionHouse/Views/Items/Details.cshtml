@@ -1,0 +1,71 @@
+﻿@model AuctionHouse.Models.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Item</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller.SellerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller.SellerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemDescription)
+        </dd>
+
+    </dl>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+
+        <thead>
+            <th>Bidder Name</th>
+            <th>Price</th>
+        </thead>
+
+        <tbody id="inner">
+            @for  (int i = Model.Bids.Count() -1; i >= 0; i--)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Bids.ElementAt(i).Buyer.BuyerName)
+                    </td>
+                    <td id="price">
+                        @Html.DisplayFor(model => model.Bids.ElementAt(i).Price)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/AjaxRequest.js"></script>    
+}
