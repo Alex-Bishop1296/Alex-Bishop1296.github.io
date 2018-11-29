@@ -36,3 +36,6 @@
 
 ### DEMO 2
 ![demo2](example/hw9ex/demo2.PNG)
+
+###Link to our working website:
+[Demo it here](http://cs460auctionhousea.azurewebsites.net/)
